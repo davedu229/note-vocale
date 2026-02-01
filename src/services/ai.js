@@ -15,7 +15,7 @@ const initializeAI = () => {
                 return null;
             }
             genAI = new GoogleGenerativeAI(API_KEY);
-            model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+            model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
             console.log("Gemini AI initialized successfully");
         } catch (error) {
             console.error("Failed to initialize Gemini AI:", error);
