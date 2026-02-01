@@ -33,7 +33,7 @@ const Layout = ({ children, onUpgradeClick }) => {
     return (
         <div className="relative min-h-screen min-h-dvh flex flex-col items-center justify-center bg-background text-white/90 font-sans overflow-hidden">
             {/* Mobile Container - iOS optimized */}
-            <div className="w-full h-screen h-dvh max-w-md bg-background relative flex flex-col overflow-hidden md:border-x md:border-white/5 md:shadow-2xl noise-overlay">
+            <div className="w-full h-full sm:h-[100dvh] sm:max-w-md bg-background relative flex flex-col overflow-hidden sm:border-x sm:border-white/5 sm:shadow-2xl noise-overlay font-sans">
 
                 {/* Ambient Background */}
                 <div className="absolute inset-0 pointer-events-none overflow-hidden">
