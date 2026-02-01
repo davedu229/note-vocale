@@ -33,7 +33,7 @@ export const setStoredApiKey = (key) => {
 // ============================================
 // AI Model Initialization
 // ============================================
-const getModel = () => {
+export const getModel = () => {
     const apiKey = getStoredApiKey();
 
     if (!apiKey) {

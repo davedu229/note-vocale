@@ -1,23 +1,16 @@
 // Meeting Analysis Service
 // Analyzes transcripts for meeting-specific insights
 
-import { GoogleGenerativeAI } from "@google/generative-ai";
+// Meeting Analysis Service
+// Analyzes transcripts for meeting-specific insights
 
-const API_KEY = "AIzaSyDUysueajpMBpIYargJyxa5SRQhTn6kueo";
-let model = null;
-
-const getModel = () => {
-    if (!model) {
-        const genAI = new GoogleGenerativeAI(API_KEY);
-        model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-    }
-    return model;
-};
+import { getModel } from "./ai";
 
 export const analyzeMeeting = async (transcript) => {
-    const aiModel = getModel();
+  const aiModel = getModel();
+  if (!aiModel) return { success: false, error: "Clé API manquante ou invalide" };
 
-    const prompt = `Tu es un expert en analyse de réunions professionnelles.
+  const prompt = `Tu es un expert en analyse de réunions professionnelles.
 
 Analyse cette transcription et fournis un JSON **valide et parsable** avec cette structure exacte:
 
@@ -50,38 +43,39 @@ TRANSCRIPTION À ANALYSER:
 ${transcript}
 """`;
 
-    try {
-        const result = await aiModel.generateContent(prompt);
-        const text = result.response.text();
+  try {
+    const result = await aiModel.generateContent(prompt);
+    const text = result.response.text();
 
-        // Clean the response (remove potential markdown code blocks)
-        let cleanedText = text.trim();
-        if (cleanedText.startsWith('```json')) {
-            cleanedText = cleanedText.slice(7);
-        }
-        if (cleanedText.startsWith('```')) {
-            cleanedText = cleanedText.slice(3);
-        }
-        if (cleanedText.endsWith('```')) {
-            cleanedText = cleanedText.slice(0, -3);
-        }
-
-        const analysis = JSON.parse(cleanedText.trim());
-        return { success: true, data: analysis };
-    } catch (error) {
-        console.error("Meeting analysis error:", error);
-        return {
-            success: false,
-            error: error.message,
-            data: null
-        };
+    // Clean the response (remove potential markdown code blocks)
+    let cleanedText = text.trim();
+    if (cleanedText.startsWith('```json')) {
+      cleanedText = cleanedText.slice(7);
     }
+    if (cleanedText.startsWith('```')) {
+      cleanedText = cleanedText.slice(3);
+    }
+    if (cleanedText.endsWith('```')) {
+      cleanedText = cleanedText.slice(0, -3);
+    }
+
+    const analysis = JSON.parse(cleanedText.trim());
+    return { success: true, data: analysis };
+  } catch (error) {
+    console.error("Meeting analysis error:", error);
+    return {
+      success: false,
+      error: error.message,
+      data: null
+    };
+  }
 };
 
 export const analyzeConversation = async (transcript) => {
-    const aiModel = getModel();
+  const aiModel = getModel();
+  if (!aiModel) return { success: false, error: "Clé API manquante ou invalide" };
 
-    const prompt = `Tu es un expert en analyse de conversations et de communication.
+  const prompt = `Tu es un expert en analyse de conversations et de communication.
 
 Analyse cette transcription de conversation et fournis un JSON **valide et parsable**:
 
@@ -114,35 +108,36 @@ TRANSCRIPTION:
 ${transcript}
 """`;
 
-    try {
-        const result = await aiModel.generateContent(prompt);
-        let text = result.response.text().trim();
+  try {
+    const result = await aiModel.generateContent(prompt);
+    let text = result.response.text().trim();
 
-        if (text.startsWith('```json')) text = text.slice(7);
-        if (text.startsWith('```')) text = text.slice(3);
-        if (text.endsWith('```')) text = text.slice(0, -3);
+    if (text.startsWith('```json')) text = text.slice(7);
+    if (text.startsWith('```')) text = text.slice(3);
+    if (text.endsWith('```')) text = text.slice(0, -3);
 
-        const analysis = JSON.parse(text.trim());
-        return { success: true, data: analysis };
-    } catch (error) {
-        console.error("Conversation analysis error:", error);
-        return { success: false, error: error.message, data: null };
-    }
+    const analysis = JSON.parse(text.trim());
+    return { success: true, data: analysis };
+  } catch (error) {
+    console.error("Conversation analysis error:", error);
+    return { success: false, error: error.message, data: null };
+  }
 };
 
 export const generateAdvancedSummary = async (transcript, mode = 'executive') => {
-    const aiModel = getModel();
+  const aiModel = getModel();
+  if (!aiModel) return { success: false, error: "Clé API manquante ou invalide" };
 
-    const modePrompts = {
-        ultrashort: "Résume en UNE SEULE phrase percutante (style tweet, max 280 caractères).",
-        executive: "Fournis un résumé exécutif avec 3-5 bullet points des informations essentielles.",
-        detailed: "Fournis un résumé détaillé en plusieurs paragraphes structurés avec sous-titres.",
-        timeline: "Fournis un résumé chronologique avec les moments clés et timestamps estimés.",
-        qa: "Transforme le contenu en format Questions/Réponses pour faciliter l'apprentissage.",
-        actionable: "Fournis uniquement les actions concrètes à entreprendre suite à cet enregistrement."
-    };
+  const modePrompts = {
+    ultrashort: "Résume en UNE SEULE phrase percutante (style tweet, max 280 caractères).",
+    executive: "Fournis un résumé exécutif avec 3-5 bullet points des informations essentielles.",
+    detailed: "Fournis un résumé détaillé en plusieurs paragraphes structurés avec sous-titres.",
+    timeline: "Fournis un résumé chronologique avec les moments clés et timestamps estimés.",
+    qa: "Transforme le contenu en format Questions/Réponses pour faciliter l'apprentissage.",
+    actionable: "Fournis uniquement les actions concrètes à entreprendre suite à cet enregistrement."
+  };
 
-    const prompt = `${modePrompts[mode] || modePrompts.executive}
+  const prompt = `${modePrompts[mode] || modePrompts.executive}
 
 Utilise un formatage Markdown riche:
 - **Gras** pour les points importants
@@ -155,19 +150,20 @@ TRANSCRIPTION:
 ${transcript}
 """`;
 
-    try {
-        const result = await aiModel.generateContent(prompt);
-        return { success: true, data: result.response.text() };
-    } catch (error) {
-        console.error("Summary error:", error);
-        return { success: false, error: error.message, data: null };
-    }
+  try {
+    const result = await aiModel.generateContent(prompt);
+    return { success: true, data: result.response.text() };
+  } catch (error) {
+    console.error("Summary error:", error);
+    return { success: false, error: error.message, data: null };
+  }
 };
 
 export const analyzeBrainstorm = async (transcript) => {
-    const aiModel = getModel();
+  const aiModel = getModel();
+  if (!aiModel) return { success: false, error: "Clé API manquante ou invalide" };
 
-    const prompt = `Tu es un expert en analyse de séances de brainstorming, monologues créatifs et réflexions introspectives.
+  const prompt = `Tu es un expert en analyse de séances de brainstorming, monologues créatifs et réflexions introspectives.
 
 Analyse cette transcription et fournis un JSON **valide et parsable** avec cette structure:
 
@@ -209,18 +205,18 @@ TRANSCRIPTION:
 ${transcript}
 """`;
 
-    try {
-        const result = await aiModel.generateContent(prompt);
-        let text = result.response.text().trim();
+  try {
+    const result = await aiModel.generateContent(prompt);
+    let text = result.response.text().trim();
 
-        if (text.startsWith('```json')) text = text.slice(7);
-        if (text.startsWith('```')) text = text.slice(3);
-        if (text.endsWith('```')) text = text.slice(0, -3);
+    if (text.startsWith('```json')) text = text.slice(7);
+    if (text.startsWith('```')) text = text.slice(3);
+    if (text.endsWith('```')) text = text.slice(0, -3);
 
-        const analysis = JSON.parse(text.trim());
-        return { success: true, data: analysis };
-    } catch (error) {
-        console.error("Brainstorm analysis error:", error);
-        return { success: false, error: error.message, data: null };
-    }
+    const analysis = JSON.parse(text.trim());
+    return { success: true, data: analysis };
+  } catch (error) {
+    console.error("Brainstorm analysis error:", error);
+    return { success: false, error: error.message, data: null };
+  }
 };
