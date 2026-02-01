@@ -1,0 +1,203 @@
+import React from 'react';
+import { useSubscription } from '../context/SubscriptionContext';
+import { Crown, ChevronRight, Bell, Shield, HelpCircle, FileText, Mail, LogOut, ExternalLink } from 'lucide-react';
+import { motion } from 'framer-motion';
+
+const SettingsPage = ({ onUpgradeClick }) => {
+    const {
+        isPremium,
+        currentTier,
+        getDaysRemaining,
+        usage
+    } = useSubscription();
+
+    const daysLeft = getDaysRemaining();
+
+    const handleManageSubscription = () => {
+        // In real iOS app, this would open App Store subscription management
+        window.open('https://apps.apple.com/account/subscriptions', '_blank');
+    };
+
+    const menuSections = [
+        {
+            title: 'Compte',
+            items: [
+                {
+                    icon: Crown,
+                    label: 'Abonnement',
+                    value: isPremium ? 'Premium' : 'Gratuit',
+                    color: isPremium ? 'text-primary-light' : 'text-white/50',
+                    action: isPremium ? handleManageSubscription : onUpgradeClick
+                }
+            ]
+        },
+        {
+            title: 'Application',
+            items: [
+                {
+                    icon: Bell,
+                    label: 'Notifications',
+                    value: 'Activées',
+                    action: () => { }
+                },
+                {
+                    icon: Shield,
+                    label: 'Confidentialité',
+                    action: () => { }
+                }
+            ]
+        },
+        {
+            title: 'Support',
+            items: [
+                {
+                    icon: HelpCircle,
+                    label: 'Aide & FAQ',
+                    action: () => { }
+                },
+                {
+                    icon: Mail,
+                    label: 'Nous contacter',
+                    value: 'support@voicenotes.app',
+                    action: () => window.open('mailto:support@voicenotes.app')
+                }
+            ]
+        },
+        {
+            title: 'Légal',
+            items: [
+                {
+                    icon: FileText,
+                    label: 'Conditions d\'utilisation',
+                    external: true,
+                    action: () => window.open('/terms', '_blank')
+                },
+                {
+                    icon: Shield,
+                    label: 'Politique de confidentialité',
+                    external: true,
+                    action: () => window.open('/privacy', '_blank')
+                }
+            ]
+        },
+        {
+            title: 'Zone Danger',
+            items: [
+                {
+                    icon: LogOut,
+                    label: 'Déconnexion',
+                    color: 'text-red-400',
+                    action: () => {
+                        if (window.confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
+                            // Clear local storage or handle logout logic
+                            console.log('User logged out');
+                            // navigate('/login'); // If there was a login route
+                        }
+                    }
+                }
+            ]
+        }
+    ];
+
+    return (
+        <div className="pb-20">
+            {/* Subscription Card */}
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={`p-5 rounded-2xl mb-6 ${isPremium
+                    ? 'bg-gradient-to-br from-primary/20 via-accent/10 to-secondary/10 border border-primary/30'
+                    : 'bg-white/[0.03] border border-white/10'
+                    }`}
+            >
+                <div className="flex items-start justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                        <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${isPremium
+                            ? 'bg-gradient-to-br from-primary to-accent'
+                            : 'bg-white/10'
+                            }`}>
+                            <Crown size={22} className="text-white" />
+                        </div>
+                        <div>
+                            <h3 className="font-semibold text-white">
+                                {isPremium ? 'Premium' : 'Plan Gratuit'}
+                            </h3>
+                            {isPremium && daysLeft !== null && (
+                                <p className="text-xs text-white/50">
+                                    {daysLeft > 0 ? `Renouvellement dans ${daysLeft} jour${daysLeft > 1 ? 's' : ''}` : 'Renouvellement aujourd\'hui'}
+                                </p>
+                            )}
+                            {!isPremium && (
+                                <p className="text-xs text-white/50">
+                                    {usage.transcriptionsThisMonth}/{currentTier.limits.transcriptionsPerMonth} transcriptions utilisées
+                                </p>
+                            )}
+                        </div>
+                    </div>
+                </div>
+
+                {isPremium ? (
+                    <button
+                        onClick={handleManageSubscription}
+                        className="w-full py-2.5 px-4 bg-white/10 text-white/70 rounded-xl text-sm font-medium hover:bg-white/15 transition-colors flex items-center justify-center gap-2"
+                    >
+                        Gérer l'abonnement
+                        <ExternalLink size={14} />
+                    </button>
+                ) : (
+                    <button
+                        onClick={onUpgradeClick}
+                        className="w-full py-3 px-4 bg-gradient-to-r from-primary to-accent text-white rounded-xl text-sm font-semibold shadow-lg shadow-primary/20 flex items-center justify-center gap-2"
+                    >
+                        <Crown size={16} />
+                        Passer à Premium
+                    </button>
+                )}
+            </motion.div>
+
+            {/* Menu Sections */}
+            {menuSections.map((section, sIdx) => (
+                <div key={sIdx} className="mb-6">
+                    <h4 className="text-xs text-white/40 uppercase tracking-wider font-medium mb-2 px-1">
+                        {section.title}
+                    </h4>
+                    <div className="bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden">
+                        {section.items.map((item, iIdx) => (
+                            <button
+                                key={iIdx}
+                                onClick={item.action}
+                                className={`w-full flex items-center justify-between px-4 py-3.5 hover:bg-white/[0.03] transition-colors ${iIdx !== section.items.length - 1 ? 'border-b border-white/5' : ''
+                                    }`}
+                            >
+                                <div className="flex items-center gap-3">
+                                    <item.icon size={18} className={item.color || 'text-white/50'} />
+                                    <span className="text-sm text-white/80">{item.label}</span>
+                                </div>
+                                <div className="flex items-center gap-2">
+                                    {item.value && (
+                                        <span className={`text-xs ${item.color || 'text-white/40'}`}>
+                                            {item.value}
+                                        </span>
+                                    )}
+                                    {item.external ? (
+                                        <ExternalLink size={14} className="text-white/30" />
+                                    ) : (
+                                        <ChevronRight size={16} className="text-white/20" />
+                                    )}
+                                </div>
+                            </button>
+                        ))}
+                    </div>
+                </div>
+            ))}
+
+            {/* App Version */}
+            <div className="text-center pt-4">
+                <p className="text-xs text-white/20">Voice Notes AI v1.0.0</p>
+                <p className="text-xxs text-white/10 mt-1">Made with ❤️</p>
+            </div>
+        </div>
+    );
+};
+
+export default SettingsPage;

@@ -1,0 +1,255 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* iOS Safe Areas */
+:root {
+  --safe-area-inset-top: env(safe-area-inset-top, 0px);
+  --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-area-inset-left: env(safe-area-inset-left, 0px);
+  --safe-area-inset-right: env(safe-area-inset-right, 0px);
+
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+  font-weight: 400;
+  color-scheme: dark;
+  color: rgba(255, 255, 255, 0.92);
+  background-color: #030303;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* iOS Touch & Selection fixes */
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+/* Prevent iOS text size adjustment */
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  /* Dynamic viewport height for iOS */
+  background: #030303;
+  overscroll-behavior: none;
+  /* Prevent iOS bounce */
+  -webkit-overflow-scrolling: touch;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding-top: var(--safe-area-inset-top);
+  padding-bottom: var(--safe-area-inset-bottom);
+  padding-left: var(--safe-area-inset-left);
+  padding-right: var(--safe-area-inset-right);
+}
+
+/* iOS Input Focus Fix */
+input,
+textarea,
+button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border-radius: 0;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+}
+
+/* Prevent iOS zoom on input focus */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="tel"],
+textarea {
+  font-size: 16px !important;
+}
+
+/* Premium Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* Hide scrollbar but allow scrolling */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Glassmorphism Utility - iOS optimized */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* iOS 26 Liquid Glass Effect */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.05);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Smooth Glow Effect */
+.glow-primary {
+  box-shadow: 0 0 40px rgba(109, 40, 217, 0.3), 0 0 80px rgba(109, 40, 217, 0.1);
+}
+
+.glow-accent {
+  box-shadow: 0 0 30px rgba(244, 114, 182, 0.25);
+}
+
+.glow-recording {
+  box-shadow: 0 0 50px rgba(239, 68, 68, 0.4), 0 0 100px rgba(239, 68, 68, 0.2);
+}
+
+/* Recording Pulse Animation - GPU accelerated for iOS */
+@keyframes recording-pulse {
+
+  0%,
+  100% {
+    transform: scale(1) translateZ(0);
+    opacity: 0.6;
+  }
+
+  50% {
+    transform: scale(1.15) translateZ(0);
+    opacity: 0.3;
+  }
+}
+
+.animate-recording-pulse {
+  animation: recording-pulse 1.5s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* Gradient Text */
+.gradient-text {
+  background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.6) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Button Hover Effects - Touch optimized */
+.btn-glow {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  will-change: transform;
+}
+
+.btn-glow:hover {
+  transform: translateY(-2px) translateZ(0);
+  box-shadow: 0 10px 40px rgba(109, 40, 217, 0.4);
+}
+
+.btn-glow:active {
+  transform: translateY(0) scale(0.98) translateZ(0);
+}
+
+/* Card Hover - Touch friendly */
+.card-interactive {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.card-interactive:hover {
+  transform: translateY(-2px) translateZ(0);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.card-interactive:active {
+  transform: scale(0.98) translateZ(0);
+}
+
+/* Noise Texture Overlay */
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.02;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* iOS Safe Area utilities */
+.pb-safe {
+  padding-bottom: max(1rem, var(--safe-area-inset-bottom));
+}
+
+.pt-safe {
+  padding-top: var(--safe-area-inset-top);
+}
+
+.mb-safe {
+  margin-bottom: var(--safe-area-inset-bottom);
+}
+
+/* iOS specific animations - smoother */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* iOS standalone mode (added to home screen) */
+@media all and (display-mode: standalone) {
+  body {
+    overscroll-behavior: none;
+  }
+
+  #root {
+    padding-top: calc(var(--safe-area-inset-top) + 0.5rem);
+  }
+}
+
+/* iOS 26 Dynamic Island awareness */
+@supports (padding: max(0px)) {
+  .pt-dynamic-island {
+    padding-top: max(var(--safe-area-inset-top), 59px);
+  }
+}
