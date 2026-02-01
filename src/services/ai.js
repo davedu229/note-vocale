@@ -17,7 +17,7 @@ export const setStoredApiKey = (key) => {
     }
 };
 
-const initializeAI = (modelName = "gemini-pro") => {
+const initializeAI = (modelName = "gemini-1.5-flash") => {
     try {
         const apiKey = getStoredApiKey();
         console.log("Initializing Gemini with model:", modelName);
@@ -39,7 +39,7 @@ const initializeAI = (modelName = "gemini-pro") => {
 
 export const testConnection = async () => {
     try {
-        const aiModel = initializeAI("gemini-pro");
+        const aiModel = initializeAI("gemini-1.5-flash");
         if (!aiModel) throw new Error("Initialization failed");
 
         console.log("Testing connection...");
@@ -50,14 +50,14 @@ export const testConnection = async () => {
         return { success: true, message: "Connexion réussie: " + text };
     } catch (error) {
         console.error("Connection Test Failed:", error);
-        // Fallback test
+        // Fallback test with different model
         try {
-            console.log("Retrying with gemini-pro...");
-            const aiModel = initializeAI("gemini-pro");
+            console.log("Retrying with gemini-1.5-pro...");
+            const aiModel = initializeAI("gemini-1.5-pro");
             const result = await aiModel.generateContent("Hello");
             const response = await result.response;
-            return { success: true, message: "Connexion réussie (Fallback gemini-pro): " + response.text() };
-        } catch (error) {
+            return { success: true, message: "Connexion réussie (Fallback): " + response.text() };
+        } catch (fallbackError) {
             return { success: false, message: error.message || "Erreur de connexion" };
         }
     }
