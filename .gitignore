@@ -24,7 +24,7 @@ dist-ssr
 *.sw?
 
 # Environment Variables
-.env
+# .env -> Commented out to allow pushing to GitHub (Not recommended for public repos)
 .env.local
 .env.development.local
 .env.test.local
