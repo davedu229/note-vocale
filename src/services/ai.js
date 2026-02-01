@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// Initialize Gemini API
-const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+// Initialize Gemini API - Clé directement intégrée pour simplicité
+const API_KEY = "AIzaSyDUysueajpMBpIYargJyxa5SRQhTn6kueo";
 
 let genAI = null;
 let model = null;
@@ -9,6 +9,11 @@ let model = null;
 const initializeAI = () => {
     if (!genAI) {
         try {
+            console.log("API Key present:", !!API_KEY, "Length:", API_KEY?.length || 0);
+            if (!API_KEY) {
+                console.error("VITE_GEMINI_API_KEY is not set in .env file!");
+                return null;
+            }
             genAI = new GoogleGenerativeAI(API_KEY);
             model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
             console.log("Gemini AI initialized successfully");
