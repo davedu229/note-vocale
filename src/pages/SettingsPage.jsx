@@ -1,13 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSubscription } from '../context/SubscriptionContext';
-import { Activity, Crown, ChevronRight, Bell, Shield, HelpCircle, FileText, Mail, LogOut, ExternalLink } from 'lucide-react';
-import { testConnection } from '../services/ai';
+import { Activity, Crown, ChevronRight, Bell, Shield, HelpCircle, FileText, Mail, LogOut, ExternalLink, Key, Eye, EyeOff, Check } from 'lucide-react';
+import { testConnection, getStoredApiKey, setStoredApiKey } from '../services/ai';
+import { motion } from 'framer-motion';
 
 const SettingsPage = ({ onUpgradeClick }) => {
+    // API Key state - initialize from localStorage
+    const [apiKey, setApiKey] = useState(() => getStoredApiKey() || '');
+    const [showApiKey, setShowApiKey] = useState(false);
+    const [apiKeySaved, setApiKeySaved] = useState(false);
+
+    const handleSaveApiKey = () => {
+        setStoredApiKey(apiKey);
+        setApiKeySaved(true);
+        setTimeout(() => setApiKeySaved(false), 2000);
+    };
+
     const handleTestConnection = async () => {
         const result = await testConnection();
         alert(result.message);
     };
+
     const {
         isPremium,
         currentTier,
@@ -162,6 +175,62 @@ const SettingsPage = ({ onUpgradeClick }) => {
                         Passer à Premium
                     </button>
                 )}
+            </motion.div>
+
+            {/* API Key Configuration */}
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="p-5 rounded-2xl mb-6 bg-white/[0.03] border border-white/10"
+            >
+                <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-yellow-500/20 to-orange-500/20 flex items-center justify-center">
+                        <Key size={18} className="text-yellow-400" />
+                    </div>
+                    <div>
+                        <h3 className="font-semibold text-white text-sm">Clé API Gemini</h3>
+                        <p className="text-xs text-white/40">Configurez votre propre clé</p>
+                    </div>
+                </div>
+
+                <div className="relative mb-3">
+                    <input
+                        type={showApiKey ? "text" : "password"}
+                        value={apiKey}
+                        onChange={(e) => setApiKey(e.target.value)}
+                        placeholder="AIzaSy..."
+                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 pr-12 text-sm text-white placeholder-white/30 focus:outline-none focus:border-primary/50"
+                    />
+                    <button
+                        onClick={() => setShowApiKey(!showApiKey)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/60"
+                    >
+                        {showApiKey ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
+                </div>
+
+                <div className="flex gap-2">
+                    <button
+                        onClick={handleSaveApiKey}
+                        className={`flex-1 py-2.5 px-4 rounded-xl text-sm font-medium transition-all flex items-center justify-center gap-2 ${apiKeySaved
+                            ? 'bg-green-500/20 text-green-400 border border-green-500/30'
+                            : 'bg-primary/20 text-primary-light border border-primary/30 hover:bg-primary/30'
+                            }`}
+                    >
+                        {apiKeySaved ? <><Check size={16} /> Sauvegardé !</> : 'Sauvegarder'}
+                    </button>
+                    <button
+                        onClick={handleTestConnection}
+                        className="py-2.5 px-4 bg-white/10 text-white/70 rounded-xl text-sm font-medium hover:bg-white/15 transition-colors"
+                    >
+                        Tester
+                    </button>
+                </div>
+
+                <p className="text-xs text-white/30 mt-3">
+                    Obtenez une clé sur <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer" className="text-primary-light underline">Google AI Studio</a>
+                </p>
             </motion.div>
 
             {/* Menu Sections */}

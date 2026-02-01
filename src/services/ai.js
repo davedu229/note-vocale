@@ -1,22 +1,34 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// Initialize Gemini API - Clé directement intégrée pour simplicité
-const API_KEY = "AIzaSyBZLcU04a1q-IuFZFyivfm9t_Zi8WyxLdU";
+// Default API Key (fallback)
+const DEFAULT_API_KEY = "AIzaSyBZLcU04a1q-IuFZFyivfm9t_Zi8WyxLdU";
+const API_KEY_STORAGE_KEY = "voice_notes_gemini_api_key";
 
-// let genAI = null;
-// let model = null;
+// API Key management functions
+export const getStoredApiKey = () => {
+    return localStorage.getItem(API_KEY_STORAGE_KEY) || DEFAULT_API_KEY;
+};
+
+export const setStoredApiKey = (key) => {
+    if (key && key.trim()) {
+        localStorage.setItem(API_KEY_STORAGE_KEY, key.trim());
+    } else {
+        localStorage.removeItem(API_KEY_STORAGE_KEY);
+    }
+};
 
 const initializeAI = (modelName = "gemini-pro") => {
     try {
+        const apiKey = getStoredApiKey();
         console.log("Initializing Gemini with model:", modelName);
-        console.log("API Key present:", !!API_KEY);
+        console.log("Using custom API key:", apiKey !== DEFAULT_API_KEY);
 
-        if (!API_KEY) {
-            console.error("VITE_GEMINI_API_KEY is not set!");
+        if (!apiKey) {
+            console.error("No API key available!");
             return null;
         }
 
-        const genAI = new GoogleGenerativeAI(API_KEY);
+        const genAI = new GoogleGenerativeAI(apiKey);
         const model = genAI.getGenerativeModel({ model: modelName });
         return model;
     } catch (error) {
