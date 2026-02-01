@@ -3,25 +3,52 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 // Initialize Gemini API - Clé directement intégrée pour simplicité
 const API_KEY = "AIzaSyDGzLf6dYdjyPXySCu6Hq7yVQeESi9XkHY";
 
-let genAI = null;
-let model = null;
+// let genAI = null;
+// let model = null;
 
-const initializeAI = () => {
-    if (!genAI) {
+const initializeAI = (modelName = "gemini-1.5-flash") => {
+    try {
+        console.log("Initializing Gemini with model:", modelName);
+        console.log("API Key present:", !!API_KEY);
+
+        if (!API_KEY) {
+            console.error("VITE_GEMINI_API_KEY is not set!");
+            return null;
+        }
+
+        const genAI = new GoogleGenerativeAI(API_KEY);
+        const model = genAI.getGenerativeModel({ model: modelName });
+        return model;
+    } catch (error) {
+        console.error("Failed to initialize Gemini AI:", error);
+        return null;
+    }
+};
+
+export const testConnection = async () => {
+    try {
+        const aiModel = initializeAI("gemini-1.5-flash");
+        if (!aiModel) throw new Error("Initialization failed");
+
+        console.log("Testing connection...");
+        const result = await aiModel.generateContent("Hello");
+        const response = await result.response;
+        const text = response.text();
+        console.log("Connection successful:", text);
+        return { success: true, message: "Connexion réussie: " + text };
+    } catch (error) {
+        console.error("Connection Test Failed:", error);
+        // Fallback test
         try {
-            console.log("API Key present:", !!API_KEY, "Length:", API_KEY?.length || 0);
-            if (!API_KEY) {
-                console.error("VITE_GEMINI_API_KEY is not set in .env file!");
-                return null;
-            }
-            genAI = new GoogleGenerativeAI(API_KEY);
-            model = genAI.getGenerativeModel({ model: "gemini-1.5-flash-001" });
-            console.log("Gemini AI initialized successfully");
+            console.log("Retrying with gemini-pro...");
+            const aiModel = initializeAI("gemini-pro");
+            const result = await aiModel.generateContent("Hello");
+            const response = await result.response;
+            return { success: true, message: "Connexion réussie (Fallback gemini-pro): " + response.text() };
         } catch (error) {
-            console.error("Failed to initialize Gemini AI:", error);
+            return { success: false, message: error.message || "Erreur de connexion" };
         }
     }
-    return model;
 };
 
 export const generateSummary = async (transcript) => {

@@ -1,9 +1,13 @@
 import React from 'react';
 import { useSubscription } from '../context/SubscriptionContext';
-import { Crown, ChevronRight, Bell, Shield, HelpCircle, FileText, Mail, LogOut, ExternalLink } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Activity, Crown, ChevronRight, Bell, Shield, HelpCircle, FileText, Mail, LogOut, ExternalLink } from 'lucide-react';
+import { testConnection } from '../services/ai';
 
 const SettingsPage = ({ onUpgradeClick }) => {
+    const handleTestConnection = async () => {
+        const result = await testConnection();
+        alert(result.message);
+    };
     const {
         isPremium,
         currentTier,
@@ -50,6 +54,11 @@ const SettingsPage = ({ onUpgradeClick }) => {
         {
             title: 'Support',
             items: [
+                {
+                    icon: Activity,
+                    label: 'Tester la connexion IA',
+                    action: handleTestConnection
+                },
                 {
                     icon: HelpCircle,
                     label: 'Aide & FAQ',
