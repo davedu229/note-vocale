@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // Initialize Gemini API - Clé directement intégrée pour simplicité
-const API_KEY = "AIzaSyDUysueajpMBpIYargJyxa5SRQhTn6kueo";
+const API_KEY = "AIzaSyDGzLf6dYdjyPXySCu6Hq7yVQeESi9XkHY";
 
 let genAI = null;
 let model = null;
