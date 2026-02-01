@@ -1,12 +1,12 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // Initialize Gemini API - Clé directement intégrée pour simplicité
-const API_KEY = "AIzaSyDGzLf6dYdjyPXySCu6Hq7yVQeESi9XkHY";
+const API_KEY = "AIzaSyBZLcU04a1q-IuFZFyivfm9t_Zi8WyxLdU";
 
 // let genAI = null;
 // let model = null;
 
-const initializeAI = (modelName = "gemini-1.5-flash") => {
+const initializeAI = (modelName = "gemini-pro") => {
     try {
         console.log("Initializing Gemini with model:", modelName);
         console.log("API Key present:", !!API_KEY);
@@ -27,7 +27,7 @@ const initializeAI = (modelName = "gemini-1.5-flash") => {
 
 export const testConnection = async () => {
     try {
-        const aiModel = initializeAI("gemini-1.5-flash");
+        const aiModel = initializeAI("gemini-pro");
         if (!aiModel) throw new Error("Initialization failed");
 
         console.log("Testing connection...");
