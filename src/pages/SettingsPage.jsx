@@ -272,7 +272,7 @@ const SettingsPage = ({ onUpgradeClick }) => {
             {/* App Version */}
             <div className="text-center pt-4">
                 <p className="text-xs text-white/20">Voice Notes AI v1.0.0</p>
-                <p className="text-xxs text-white/10 mt-1">Made with ❤️</p>
+                <p className="text-xxs text-white/10 mt-1">Made by Davis AMOUSSOU</p>
             </div>
         </div>
     );
