@@ -99,7 +99,7 @@ const Layout = ({ children, onUpgradeClick }) => {
             </div>
 
             {/* Mobile Bottom Navigation */}
-            <nav className="md:hidden absolute bottom-0 left-0 right-0 z-30">
+            <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50">
                 {/* Gradient fade effect */}
                 <div className="absolute -top-12 left-0 right-0 h-12 bg-gradient-to-t from-background to-transparent pointer-events-none" />
 
