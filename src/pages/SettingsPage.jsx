@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSubscription } from '../context/SubscriptionContext';
-import { Activity, Crown, ChevronRight, Bell, Shield, HelpCircle, FileText, Mail, LogOut, ExternalLink, Key, Eye, EyeOff, Check } from 'lucide-react';
-import { testConnection, getStoredApiKey, setStoredApiKey } from '../services/ai';
+import { Activity, Crown, ChevronRight, Bell, Shield, HelpCircle, FileText, Mail, LogOut, ExternalLink, Key, Eye, EyeOff, Check, Sparkles } from 'lucide-react';
+import { testConnection, getStoredApiKey, setStoredApiKey, getSummaryStyle, setSummaryStyle, getSummaryStyleOptions } from '../services/ai';
 import { motion } from 'framer-motion';
 
 const SettingsPage = ({ onUpgradeClick }) => {
@@ -9,6 +9,15 @@ const SettingsPage = ({ onUpgradeClick }) => {
     const [apiKey, setApiKey] = useState(() => getStoredApiKey() || '');
     const [showApiKey, setShowApiKey] = useState(false);
     const [apiKeySaved, setApiKeySaved] = useState(false);
+
+    // Summary Style state
+    const [summaryStyle, setCurrentSummaryStyle] = useState(() => getSummaryStyle());
+    const styleOptions = getSummaryStyleOptions();
+
+    const handleStyleChange = (styleKey) => {
+        setSummaryStyle(styleKey);
+        setCurrentSummaryStyle(styleKey);
+    };
 
     const handleSaveApiKey = () => {
         setStoredApiKey(apiKey);
@@ -231,6 +240,48 @@ const SettingsPage = ({ onUpgradeClick }) => {
                 <p className="text-xs text-white/30 mt-3">
                     Obtenez une clé sur <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer" className="text-primary-light underline">Google AI Studio</a>
                 </p>
+            </motion.div>
+
+            {/* Summary Style Selector */}
+            <motion.div
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.15 }}
+                className="p-5 rounded-2xl mb-6 bg-white/[0.03] border border-white/10"
+            >
+                <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+                        <Sparkles size={18} className="text-primary-light" />
+                    </div>
+                    <div>
+                        <h3 className="font-semibold text-white text-sm">Style de Résumé</h3>
+                        <p className="text-xs text-white/40">Personnalisez vos résumés</p>
+                    </div>
+                </div>
+
+                <div className="space-y-2">
+                    {styleOptions.map((option) => (
+                        <button
+                            key={option.key}
+                            onClick={() => handleStyleChange(option.key)}
+                            className={`w-full flex items-center gap-3 p-3 rounded-xl border transition-all ${summaryStyle === option.key
+                                    ? 'bg-primary/10 border-primary/30'
+                                    : 'bg-white/[0.02] border-white/5 hover:border-white/10'
+                                }`}
+                        >
+                            <span className="text-xl">{option.emoji}</span>
+                            <div className="text-left flex-1">
+                                <p className={`text-sm font-medium ${summaryStyle === option.key ? 'text-primary-light' : 'text-white/80'}`}>
+                                    {option.label}
+                                </p>
+                                <p className="text-xs text-white/40">{option.description}</p>
+                            </div>
+                            {summaryStyle === option.key && (
+                                <Check size={16} className="text-primary-light" />
+                            )}
+                        </button>
+                    ))}
+                </div>
             </motion.div>
 
             {/* Menu Sections */}

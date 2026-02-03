@@ -89,6 +89,111 @@ export const testConnection = async () => {
 };
 
 // ============================================
+// Summary Styles
+// ============================================
+const SUMMARY_STYLE_KEY = "voice_notes_summary_style";
+
+export const SUMMARY_STYLES = {
+    professional: {
+        key: "professional",
+        label: "Professionnel",
+        emoji: "💼",
+        description: "Structuré, formel, avec points clés",
+        prompt: `Tu es un assistant de prise de notes expert. Analyse cette transcription vocale et génère un résumé **structuré et professionnel** en Markdown.
+
+## Instructions :
+- Utilise des **titres** (## ou ###) pour structurer
+- Utilise des **listes à puces** pour les points clés
+- Mets en **gras** les mots importants
+- Ton formel et concis
+
+## Structure :
+### 🎯 Résumé Exécutif
+Un paragraphe de 2-3 phrases.
+
+### 📌 Points Clés
+- Point 1
+- Point 2
+
+### ✅ Actions (si applicable)
+- Action 1`
+    },
+    casual: {
+        key: "casual",
+        label: "Décontracté",
+        emoji: "😊",
+        description: "Fluide, conversationnel, facile à lire",
+        prompt: `Tu es un assistant amical. Analyse cette transcription et génère un résumé **naturel et décontracté** en Markdown.
+
+## Instructions :
+- Écris de manière conversationnelle, comme si tu racontais à un ami
+- Utilise des emojis pour rendre le texte vivant 🎉
+- Évite les listes trop formelles, préfère le texte fluide
+- Reste concis mais chaleureux
+
+## Format :
+Un ou deux paragraphes qui résument l'essentiel de manière naturelle, avec quelques emojis pertinents.`
+    },
+    detailed: {
+        key: "detailed",
+        label: "Détaillé",
+        emoji: "📖",
+        description: "Complet, avec citations et contexte",
+        prompt: `Tu es un assistant de prise de notes minutieux. Analyse cette transcription et génère un résumé **très détaillé** en Markdown.
+
+## Instructions :
+- Structure avec plusieurs sections
+- Inclus des citations importantes entre guillemets
+- Ajoute du contexte et des nuances
+- Utilise des emojis (📌 💡 ⚠️ ✅ 📝 🎯 💬)
+
+## Structure complète :
+### 🎯 Résumé Général
+Paragraphe détaillé de 3-4 phrases.
+
+### 📌 Points Principaux
+- Point détaillé 1
+- Point détaillé 2
+
+### 💬 Citations Importantes
+> "Citation directe si pertinent"
+
+### 💡 Idées & Réflexions
+- Observation 1
+
+### ✅ Actions Suggérées (si applicable)
+- Action avec contexte`
+    }
+};
+
+export const getSummaryStyle = () => {
+    try {
+        return localStorage.getItem(SUMMARY_STYLE_KEY) || "professional";
+    } catch {
+        return "professional";
+    }
+};
+
+export const setSummaryStyle = (style) => {
+    try {
+        if (SUMMARY_STYLES[style]) {
+            localStorage.setItem(SUMMARY_STYLE_KEY, style);
+        }
+    } catch (e) {
+        console.error("Failed to save summary style:", e);
+    }
+};
+
+export const getSummaryStyleOptions = () => {
+    return Object.values(SUMMARY_STYLES).map(s => ({
+        key: s.key,
+        label: s.label,
+        emoji: s.emoji,
+        description: s.description
+    }));
+};
+
+// ============================================
 // Generate Summary
 // ============================================
 export const generateSummary = async (transcript) => {
@@ -102,27 +207,10 @@ export const generateSummary = async (transcript) => {
     }
 
     try {
-        const prompt = `Tu es un assistant de prise de notes expert. Analyse cette transcription vocale et génère un résumé **richement formaté** en Markdown.
+        const styleKey = getSummaryStyle();
+        const style = SUMMARY_STYLES[styleKey] || SUMMARY_STYLES.professional;
 
-## Instructions de formatage :
-- Utilise des **titres** (## ou ###) pour structurer
-- Utilise des **listes à puces** (- ou •) pour les points clés
-- Mets en **gras** les mots importants
-- Utilise l'*italique* pour les nuances
-- Ajoute des emojis pertinents (📌 💡 ⚠️ ✅ 📝 🎯 💬 📊 🔑 ⏰)
-
-## Structure attendue :
-
-### 🎯 Résumé
-Un paragraphe de 2-3 phrases résumant l'essentiel.
-
-### 📌 Points Clés
-- Point 1
-- Point 2
-- etc.
-
-### 💡 Idées / Actions (si applicable)
-- Action ou idée à retenir
+        const prompt = `${style.prompt}
 
 ---
 
