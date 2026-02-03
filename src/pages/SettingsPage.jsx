@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSubscription } from '../context/SubscriptionContext';
 import { Activity, Crown, ChevronRight, Bell, Shield, HelpCircle, FileText, Mail, LogOut, ExternalLink, Key, Eye, EyeOff, Check } from 'lucide-react';
 import { testConnection, getStoredApiKey, setStoredApiKey } from '../services/ai';
+import { motion } from 'framer-motion';
 
 const SettingsPage = ({ onUpgradeClick }) => {
     // API Key state - initialize from localStorage

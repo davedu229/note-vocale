@@ -13,7 +13,7 @@ const NotesListPage = () => {
 
     if (notes.length === 0) {
         return (
-            <div className="flex flex-col items-center justify-center h-[60vh] text-center">
+            <div className="flex flex-col items-center justify-center flex-1 text-center py-20">
                 <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-5">
                     <Mic size={28} className="text-white/20" strokeWidth={1.5} />
                 </div>
@@ -46,7 +46,7 @@ const NotesListPage = () => {
     };
 
     return (
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 h-full max-w-4xl mx-auto w-full">
             {/* Selection Summary */}
             <div className="flex items-center justify-between py-2 px-1">
                 <span className="text-xs text-white/40">
