@@ -2,9 +2,10 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useNotes } from '../context/NotesContext';
 import { chatWithAi } from '../services/ai';
-import { ArrowLeft, Send, Bot, User, FileText, MessageSquare, Copy, Check, Trash2, BarChart3, RotateCcw } from 'lucide-react';
+import { ArrowLeft, Send, Bot, User, FileText, MessageSquare, Copy, Check, Trash2, BarChart3, RotateCcw, Wand2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import MarkdownRenderer from '../components/MarkdownRenderer';
+import MagicActionsMenu from '../components/MagicActionsMenu';
 
 const NoteDetailPage = () => {
     const { id } = useParams();
@@ -16,6 +17,7 @@ const NoteDetailPage = () => {
     const [input, setInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [copied, setCopied] = useState(false);
+    const [showMagicMenu, setShowMagicMenu] = useState(false);
     const messagesEndRef = useRef(null);
     const inputRef = useRef(null);
 
@@ -126,6 +128,13 @@ const NoteDetailPage = () => {
                 </button>
 
                 <div className="flex items-center gap-1">
+                    <button
+                        onClick={() => setShowMagicMenu(true)}
+                        className="p-2 rounded-lg text-accent bg-accent/10 hover:bg-accent/20 transition-all active:scale-95"
+                        title="Magic Actions"
+                    >
+                        <Wand2 size={16} />
+                    </button>
                     <button
                         onClick={() => navigate(`/notes/${id}/analyze`)}
                         className="p-2 rounded-lg text-primary-light bg-primary/10 hover:bg-primary/20 transition-all active:scale-95"
@@ -315,6 +324,16 @@ const NoteDetailPage = () => {
                     )}
                 </AnimatePresence>
             </div>
+
+            {/* Magic Actions Menu */}
+            <AnimatePresence>
+                {showMagicMenu && (
+                    <MagicActionsMenu
+                        content={note.summary || note.text}
+                        onClose={() => setShowMagicMenu(false)}
+                    />
+                )}
+            </AnimatePresence>
         </div>
     );
 };
