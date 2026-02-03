@@ -157,9 +157,26 @@ const NoteDetailPage = () => {
                 </div>
             </div>
 
-            {/* Date */}
-            <div className="py-3">
-                <span className="text-xs text-white/40 uppercase tracking-wider">{note.date}</span>
+            {/* Title and Meta */}
+            <div className="py-3 border-b border-white/5">
+                <h1 className="text-lg font-semibold text-white mb-1">
+                    {note.title || 'Note sans titre'}
+                </h1>
+                <div className="flex items-center gap-3 flex-wrap">
+                    <span className="text-xs text-white/40 uppercase tracking-wider">{note.date}</span>
+                    {note.tags && note.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5">
+                            {note.tags.map((tag, i) => (
+                                <span
+                                    key={i}
+                                    className="px-2 py-0.5 bg-primary/10 text-primary-light text-xxs rounded-full"
+                                >
+                                    {tag}
+                                </span>
+                            ))}
+                        </div>
+                    )}
+                </div>
             </div>
 
             {/* Tabs */}

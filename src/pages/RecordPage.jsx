@@ -2,7 +2,7 @@ import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AudioRecorder from '../components/AudioRecorder';
 import TranscriptView from '../components/TranscriptView';
-import { generateSummary } from '../services/ai';
+import { generateSummary, generateTitleAndTags } from '../services/ai';
 import { useNotes } from '../context/NotesContext';
 import { useSubscription } from '../context/SubscriptionContext';
 import { Sparkles, Crown } from 'lucide-react';
@@ -39,10 +39,16 @@ const RecordPage = ({ onUpgradeClick }) => {
         // Track usage
         trackUsage('transcription');
 
-        const summary = await generateSummary(fullText);
+        // Generate summary and title/tags in parallel
+        const [summary, { title, tags }] = await Promise.all([
+            generateSummary(fullText),
+            generateTitleAndTags(fullText)
+        ]);
 
         const newNote = {
             id: Date.now().toString(),
+            title: title,
+            tags: tags,
             date: new Date().toLocaleDateString('fr-FR', {
                 day: 'numeric',
                 month: 'long',

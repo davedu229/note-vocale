@@ -147,6 +147,51 @@ Génère uniquement le résumé formaté, sans commentaires additionnels.`;
 };
 
 // ============================================
+// Generate Smart Title and Tags
+// ============================================
+export const generateTitleAndTags = async (content) => {
+    if (!content || content.trim().length < 10) {
+        return { title: "Note sans titre", tags: [] };
+    }
+
+    const model = getModel();
+    if (!model) {
+        return { title: "Note sans titre", tags: [] };
+    }
+
+    try {
+        const prompt = `Analyse ce contenu et génère:
+1. Un TITRE accrocheur et descriptif (3-6 mots max)
+2. Des TAGS pertinents (2-4 tags, sans le symbole #)
+
+Contenu:
+"${content.substring(0, 500)}"
+
+Réponds UNIQUEMENT au format JSON suivant, sans markdown:
+{"title": "Titre ici", "tags": ["tag1", "tag2", "tag3"]}`;
+
+        const result = await model.generateContent(prompt);
+        const response = result.response;
+        const text = response.text().trim();
+
+        // Parse JSON response
+        const jsonMatch = text.match(/\{[\s\S]*\}/);
+        if (jsonMatch) {
+            const parsed = JSON.parse(jsonMatch[0]);
+            return {
+                title: parsed.title || "Note sans titre",
+                tags: Array.isArray(parsed.tags) ? parsed.tags.slice(0, 4) : []
+            };
+        }
+
+        return { title: "Note sans titre", tags: [] };
+    } catch (error) {
+        console.error("Title/Tags generation error:", error);
+        return { title: "Note sans titre", tags: [] };
+    }
+};
+
+// ============================================
 // Chat with AI
 // ============================================
 export const chatWithAi = async (message, contextNotes = []) => {

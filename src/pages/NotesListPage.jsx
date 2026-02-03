@@ -84,15 +84,32 @@ const NotesListPage = () => {
                             onClick={() => navigate(`/notes/${note.id}`)}
                             className="p-4 pl-5 pr-12 cursor-pointer"
                         >
-                            {/* Header */}
-                            <div className="flex justify-between items-center mb-2">
+                            {/* Header with Title */}
+                            <div className="flex flex-col gap-1 mb-2">
+                                <h3 className="text-sm font-medium text-white/90 line-clamp-1">
+                                    {note.title || 'Note sans titre'}
+                                </h3>
                                 <span className="text-xxs font-medium text-white/40 uppercase tracking-wider">
                                     {note.date}
                                 </span>
                             </div>
 
-                            {/* Content Preview - plain text for list */}
-                            <div className="text-sm text-white/70 font-light leading-relaxed line-clamp-3">
+                            {/* Tags */}
+                            {note.tags && note.tags.length > 0 && (
+                                <div className="flex flex-wrap gap-1.5 mb-2">
+                                    {note.tags.map((tag, i) => (
+                                        <span
+                                            key={i}
+                                            className="px-2 py-0.5 bg-primary/10 text-primary-light text-xxs rounded-full"
+                                        >
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                            )}
+
+                            {/* Content Preview */}
+                            <div className="text-sm text-white/50 font-light leading-relaxed line-clamp-2">
                                 {getPreviewText(note.summary || note.text)}
                             </div>
 
