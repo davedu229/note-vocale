@@ -184,7 +184,27 @@ const AudioRecorder = ({ onTranscriptUpdate, onRecordingStop, isProcessing }) =>
 
             {/* Main Button Container */}
             <div className="relative">
-                {/* Outer Glow Rings */}
+                {/* Idle Pulse Ring - when NOT recording */}
+                <AnimatePresence>
+                    {!isRecording && !isProcessing && (
+                        <>
+                            <motion.div
+                                initial={{ scale: 0.9, opacity: 0 }}
+                                animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0, 0.4] }}
+                                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                                className="absolute inset-[-12px] rounded-full border-2 border-primary/40"
+                            />
+                            <motion.div
+                                initial={{ scale: 0.9, opacity: 0 }}
+                                animate={{ scale: [1, 1.25, 1], opacity: [0.2, 0, 0.2] }}
+                                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.8 }}
+                                className="absolute inset-[-24px] rounded-full border border-primary/20"
+                            />
+                        </>
+                    )}
+                </AnimatePresence>
+
+                {/* Outer Glow Rings - when recording */}
                 <AnimatePresence>
                     {isRecording && !isPaused && (
                         <>
@@ -209,13 +229,13 @@ const AudioRecorder = ({ onTranscriptUpdate, onRecordingStop, isProcessing }) =>
                     onClick={isRecording ? stopRecording : startRecording}
                     disabled={isProcessing}
                     whileTap={{ scale: 0.95 }}
-                    whileHover={{ scale: 1.02 }}
+                    whileHover={{ scale: 1.05 }}
                     className={`
             relative z-10 w-24 h-24 rounded-full flex items-center justify-center
             transition-all duration-500 ease-out
             ${isRecording
                             ? 'bg-gradient-to-br from-red-500 to-red-600 shadow-lg shadow-red-500/30'
-                            : 'bg-gradient-to-br from-primary to-primary-dark shadow-lg shadow-primary/30'}
+                            : 'bg-gradient-to-br from-primary to-primary-dark shadow-xl shadow-primary/40 hover:shadow-primary/50'}
             ${isProcessing ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
           `}
                 >

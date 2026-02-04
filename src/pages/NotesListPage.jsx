@@ -27,19 +27,29 @@ const NotesListPage = () => {
 
     if (notes.length === 0) {
         return (
-            <div className="flex flex-col items-center justify-center flex-1 text-center py-20">
-                <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-5">
-                    <Mic size={28} className="text-white/20" strokeWidth={1.5} />
+            <div className="flex flex-col items-center justify-center flex-1 text-center py-16 px-6">
+                {/* Animated Icon Container */}
+                <div className="relative mb-6">
+                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-accent/10 flex items-center justify-center border border-primary/20">
+                        <Mic size={32} className="text-primary-light" strokeWidth={1.5} />
+                    </div>
+                    {/* Subtle pulse rings */}
+                    <div className="absolute inset-[-8px] rounded-full border border-primary/20 animate-ping" style={{ animationDuration: '3s' }} />
                 </div>
-                <p className="text-lg font-medium text-white/60 mb-2">Aucune note</p>
-                <p className="text-sm text-white/30 font-light max-w-[200px]">
-                    Commencez par enregistrer votre première note vocale
+
+                <h2 className="text-xl font-semibold text-white/80 mb-2">
+                    Aucune note pour l'instant
+                </h2>
+                <p className="text-sm text-white/40 font-light max-w-[260px] mb-8 leading-relaxed">
+                    Enregistrez votre première note vocale et laissez l'IA la transformer en texte structuré
                 </p>
+
                 <Link
                     to="/"
-                    className="mt-6 px-5 py-2.5 bg-primary/10 text-primary-light text-sm font-medium rounded-xl hover:bg-primary/20 transition-colors"
+                    className="group flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-primary-dark text-white text-sm font-medium rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all hover:scale-105"
                 >
-                    Enregistrer
+                    <Mic size={16} />
+                    <span>Créer ma première note</span>
                 </Link>
             </div>
         );
