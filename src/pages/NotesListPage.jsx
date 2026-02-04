@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useNotes } from '../context/NotesContext';
-import { Trash2, CheckCircle, Circle, Mic, ChevronRight } from 'lucide-react';
+import { Trash2, CheckCircle, Circle, Mic, ChevronRight, Search, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import MarkdownRenderer from '../components/MarkdownRenderer';
@@ -9,6 +9,20 @@ import MarkdownRenderer from '../components/MarkdownRenderer';
 const NotesListPage = () => {
     const { notes, deleteNote, toggleSelectNote } = useNotes();
     const navigate = useNavigate();
+    const [searchQuery, setSearchQuery] = useState('');
+
+    // Filter notes based on search query
+    const filteredNotes = notes.filter(note => {
+        if (!searchQuery.trim()) return true;
+        const query = searchQuery.toLowerCase();
+        return (
+            (note.title && note.title.toLowerCase().includes(query)) ||
+            (note.summary && note.summary.toLowerCase().includes(query)) ||
+            (note.text && note.text.toLowerCase().includes(query)) ||
+            (note.tags && note.tags.some(tag => tag.toLowerCase().includes(query)))
+        );
+    });
+
     const selectedCount = notes.filter(n => n.selected).length;
 
     if (notes.length === 0) {
@@ -47,18 +61,39 @@ const NotesListPage = () => {
 
     return (
         <div className="flex flex-col gap-3 h-full max-w-4xl mx-auto w-full">
+            {/* Search Bar */}
+            <div className="relative mb-2">
+                <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
+                <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Rechercher par titre, contenu ou tag..."
+                    className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-3 pl-11 pr-10 text-sm text-white placeholder-white/30 focus:outline-none focus:border-primary/40 transition-colors"
+                />
+                {searchQuery && (
+                    <button
+                        onClick={() => setSearchQuery('')}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/60"
+                    >
+                        <X size={16} />
+                    </button>
+                )}
+            </div>
+
             {/* Selection Summary */}
             <div className="flex items-center justify-between py-2 px-1">
                 <span className="text-xs text-white/40">
-                    {notes.length} note{notes.length > 1 ? 's' : ''}
+                    {filteredNotes.length} note{filteredNotes.length > 1 ? 's' : ''}{searchQuery && ` trouvée${filteredNotes.length > 1 ? 's' : ''}`}
                 </span>
                 <span className="text-xs text-primary-light font-medium">
                     {selectedCount} sélectionnée{selectedCount > 1 ? 's' : ''} pour le chat
                 </span>
             </div>
 
+
             <AnimatePresence>
-                {notes.map((note, index) => (
+                {filteredNotes.map((note, index) => (
                     <motion.div
                         key={note.id}
                         layout

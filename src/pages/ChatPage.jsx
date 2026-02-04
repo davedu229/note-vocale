@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNotes } from '../context/NotesContext';
 import { chatWithAi } from '../services/ai';
-import { Send, Bot, User, FileText, History, Plus } from 'lucide-react';
+import { Send, Bot, User, FileText, History, Plus, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import MarkdownRenderer from '../components/MarkdownRenderer';
@@ -116,24 +116,27 @@ const ChatPage = () => {
                 {/* Context Bar */}
                 <Link
                     to="/notes"
-                    className="flex items-center justify-between px-4 py-3 bg-white/[0.02] border border-white/5 rounded-xl mb-3 hover:bg-white/[0.04] transition-colors"
+                    className="flex items-center justify-between px-4 py-3 bg-white/[0.02] border border-white/5 rounded-xl mb-3 hover:bg-white/[0.04] hover:border-white/10 transition-all group"
                 >
                     <div className="flex items-center gap-2.5">
-                        <div className="w-7 h-7 rounded-lg bg-primary/10 flex items-center justify-center">
-                            <FileText size={14} className="text-primary-light" />
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${selectedNotesCount > 0 ? 'bg-primary/15' : 'bg-white/5'}`}>
+                            <FileText size={14} className={selectedNotesCount > 0 ? 'text-primary-light' : 'text-white/40'} />
                         </div>
                         <div>
-                            <p className="text-xs font-medium text-white/70">Contexte actif</p>
+                            <p className="text-xs font-medium text-white/70">
+                                {selectedNotesCount > 0
+                                    ? `${selectedNotesCount} note${selectedNotesCount > 1 ? 's' : ''} en contexte`
+                                    : 'Aucun contexte'}
+                            </p>
                             <p className="text-xxs text-white/40">
                                 {selectedNotesCount > 0
-                                    ? `${selectedNotesCount} note${selectedNotesCount > 1 ? 's' : ''} sélectionnée${selectedNotesCount > 1 ? 's' : ''}`
-                                    : 'Aucune note sélectionnée'
-                                }
+                                    ? 'L\'IA se base sur ces notes'
+                                    : 'Sélectionnez des notes pour des réponses précises'}
                             </p>
                         </div>
                     </div>
-                    <span className="text-xxs text-primary-light uppercase tracking-wider font-medium">
-                        Modifier →
+                    <span className="flex items-center gap-1 text-xxs text-primary-light uppercase tracking-wider font-medium group-hover:translate-x-0.5 transition-transform">
+                        Modifier <ChevronRight size={12} />
                     </span>
                 </Link>
 

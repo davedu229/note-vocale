@@ -6,6 +6,7 @@ import { ArrowLeft, Send, Bot, User, FileText, MessageSquare, Copy, Check, Trash
 import { motion, AnimatePresence } from 'framer-motion';
 import MarkdownRenderer from '../components/MarkdownRenderer';
 import MagicActionsMenu from '../components/MagicActionsMenu';
+import ActionMenu from '../components/ActionMenu';
 
 const NoteDetailPage = () => {
     const { id } = useParams();
@@ -127,33 +128,37 @@ const NoteDetailPage = () => {
                     <span className="text-sm">Retour</span>
                 </button>
 
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-2">
+                    {/* Magic Actions - Prominent */}
                     <button
                         onClick={() => setShowMagicMenu(true)}
-                        className="p-2 rounded-lg text-accent bg-accent/10 hover:bg-accent/20 transition-all active:scale-95"
-                        title="Magic Actions"
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-accent bg-accent/10 hover:bg-accent/20 transition-all active:scale-95"
                     >
-                        <Wand2 size={16} />
+                        <Wand2 size={14} />
+                        <span className="text-xs font-medium hidden sm:inline">Magic</span>
                     </button>
-                    <button
-                        onClick={() => navigate(`/notes/${id}/analyze`)}
-                        className="p-2 rounded-lg text-primary-light bg-primary/10 hover:bg-primary/20 transition-all active:scale-95"
-                        title="Analyser"
-                    >
-                        <BarChart3 size={16} />
-                    </button>
-                    <button
-                        onClick={() => handleCopy(note.text || note.summary)}
-                        className="p-2 rounded-lg text-white/40 hover:text-white/70 hover:bg-white/5 transition-all active:scale-95"
-                    >
-                        {copied ? <Check size={16} /> : <Copy size={16} />}
-                    </button>
-                    <button
-                        onClick={handleDelete}
-                        className="p-2 rounded-lg text-white/40 hover:text-red-400 hover:bg-red-500/10 transition-all active:scale-95"
-                    >
-                        <Trash2 size={16} />
-                    </button>
+
+                    {/* Context Menu for other actions */}
+                    <ActionMenu
+                        actions={[
+                            {
+                                icon: BarChart3,
+                                label: 'Analyser',
+                                onClick: () => navigate(`/notes/${id}/analyze`)
+                            },
+                            {
+                                icon: copied ? Check : Copy,
+                                label: copied ? 'Copié !' : 'Copier le texte',
+                                onClick: () => handleCopy(note.text || note.summary)
+                            },
+                            {
+                                icon: Trash2,
+                                label: 'Supprimer',
+                                onClick: handleDelete,
+                                danger: true
+                            }
+                        ]}
+                    />
                 </div>
             </div>
 
@@ -180,24 +185,24 @@ const NoteDetailPage = () => {
             </div>
 
             {/* Tabs */}
-            <div className="flex gap-1 p-1 bg-white/[0.03] rounded-xl mb-4">
+            <div className="flex gap-1 p-1.5 bg-white/[0.04] rounded-xl mb-4 border border-white/5">
                 <button
                     onClick={() => setActiveTab('summary')}
-                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-medium transition-all active:scale-95 ${activeTab === 'summary' ? 'bg-primary/20 text-primary-light' : 'text-white/40 hover:text-white/60'}`}
+                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-medium transition-all active:scale-95 ${activeTab === 'summary' ? 'bg-primary/20 text-white shadow-sm' : 'text-white/60 hover:text-white/80 hover:bg-white/5'}`}
                 >
                     <FileText size={14} />
                     Résumé
                 </button>
                 <button
                     onClick={() => setActiveTab('transcript')}
-                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-medium transition-all active:scale-95 ${activeTab === 'transcript' ? 'bg-primary/20 text-primary-light' : 'text-white/40 hover:text-white/60'}`}
+                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-medium transition-all active:scale-95 ${activeTab === 'transcript' ? 'bg-primary/20 text-white shadow-sm' : 'text-white/60 hover:text-white/80 hover:bg-white/5'}`}
                 >
                     <FileText size={14} />
                     Brut
                 </button>
                 <button
                     onClick={() => setActiveTab('chat')}
-                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-medium transition-all active:scale-95 relative ${activeTab === 'chat' ? 'bg-primary/20 text-primary-light' : 'text-white/40 hover:text-white/60'}`}
+                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-medium transition-all active:scale-95 relative ${activeTab === 'chat' ? 'bg-primary/20 text-white shadow-sm' : 'text-white/60 hover:text-white/80 hover:bg-white/5'}`}
                 >
                     <MessageSquare size={14} />
                     Explorer

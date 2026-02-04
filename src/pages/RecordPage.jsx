@@ -79,16 +79,6 @@ const RecordPage = ({ onUpgradeClick }) => {
                 </div>
             )}
 
-            {/* Premium badge for subscribers */}
-            {isPremium && (
-                <div className="flex justify-center mb-4">
-                    <div className="flex items-center gap-2 px-3 py-1.5 bg-primary/10 border border-primary/20 rounded-full">
-                        <Crown size={12} className="text-primary-light" />
-                        <span className="text-xs text-primary-light font-medium">Premium</span>
-                    </div>
-                </div>
-            )}
-
             <div className="flex-1 flex flex-col items-center justify-center py-8">
                 {isProcessing ? (
                     <motion.div
