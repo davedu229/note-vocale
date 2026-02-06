@@ -1,39 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-
 @layer base {
   :root {
     /* Light Mode Variables (Default) */
-    --background: 248 249 250; /* #f8f9fa - Off-white */
-    --surface: 255 255 255; /* #ffffff - White */
-    --surface-elevated: 255 255 255; /* #ffffff - White (with shadow) */
-    
-    --text-primary: 17 24 39; /* #111827 - Gray-900 */
-    --text-secondary: 75 85 99; /* #4b5563 - Gray-600 */
-    --text-tertiary: 156 163 175; /* #9ca3af - Gray-400 */
-    
-    --border: 229 231 235; /* #e5e7eb - Gray-200 */
-    --border-hover: 209 213 219; /* #d1d5db - Gray-300 */
-    
+    --background: 248 249 250;
+    /* #f8f9fa - Off-white */
+    --surface: 255 255 255;
+    /* #ffffff - White */
+    --surface-elevated: 255 255 255;
+    /* #ffffff - White (with shadow) */
+
+    --text-primary: 17 24 39;
+    /* #111827 - Gray-900 */
+    --text-secondary: 75 85 99;
+    /* #4b5563 - Gray-600 */
+    --text-tertiary: 156 163 175;
+    /* #9ca3af - Gray-400 */
+
+    --border: 229 231 235;
+    /* #e5e7eb - Gray-200 */
+    --border-hover: 209 213 219;
+    /* #d1d5db - Gray-300 */
+
     /* Primary / Accent remain consistent but can be tweaked if needed */
-    --primary: 139 92 246; /* #8b5cf6 - Violet-500 */
-    --primary-foreground: 255 255 255; 
+    --primary: 139 92 246;
+    /* #8b5cf6 - Violet-500 */
+    --primary-foreground: 255 255 255;
   }
 
   .dark {
     /* Dark Mode Variables */
-    --background: 3 3 3; /* #030303 - Deep Black */
-    --surface: 10 10 15; /* #0a0a0f - Dark Gray */
-    --surface-elevated: 17 17 24; /* #111118 - Elevated Dark */
-    
-    --text-primary: 255 255 255; /* #ffffff - White */
-    --text-secondary: 156 163 175; /* #9ca3af - Gray-400 (adjusted for readability) */
-    --text-tertiary: 75 85 99; /* #4b5563 - Gray-600 */
-    
-    --border: 255 255 255; /* Opacity handled in utility classes usually, but base color is white */
+    --background: 3 3 3;
+    /* #030303 - Deep Black */
+    --surface: 10 10 15;
+    /* #0a0a0f - Dark Gray */
+    --surface-elevated: 17 17 24;
+    /* #111118 - Elevated Dark */
+
+    --text-primary: 255 255 255;
+    /* #ffffff - White */
+    --text-secondary: 156 163 175;
+    /* #9ca3af - Gray-400 (adjusted for readability) */
+    --text-tertiary: 75 85 99;
+    /* #4b5563 - Gray-600 */
+
+    --border: 255 255 255;
+    /* Opacity handled in utility classes usually, but base color is white */
     --border-hover: 255 255 255;
   }
 }
@@ -48,7 +64,7 @@
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
   line-height: 1.6;
   font-weight: 400;
-  
+
   /* Use variables for base styles */
   background-color: rgb(var(--background));
   color: rgb(var(--text-primary));
@@ -130,7 +146,8 @@ textarea {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(156, 163, 175, 0.3); /* Adaptive thumb color */
+  background: rgba(156, 163, 175, 0.3);
+  /* Adaptive thumb color */
   border-radius: 10px;
 }
 
@@ -150,7 +167,8 @@ textarea {
 
 /* Glassmorphism Utility - iOS optimized */
 .glass-panel {
-  background: rgba(var(--surface), 0.7); /* Adaptive glass */
+  background: rgba(var(--surface), 0.7);
+  /* Adaptive glass */
   -webkit-backdrop-filter: blur(20px);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(var(--border), 0.1);
@@ -158,7 +176,8 @@ textarea {
 
 /* iOS 26 Liquid Glass Effect */
 .liquid-glass {
-  background: rgba(var(--surface), 0.85); /* More opaque for light mode readability */
+  background: rgba(var(--surface), 0.85);
+  /* More opaque for light mode readability */
   -webkit-backdrop-filter: blur(40px) saturate(180%);
   backdrop-filter: blur(40px) saturate(180%);
   border-top: 1px solid rgba(var(--border), 0.1);
@@ -166,8 +185,9 @@ textarea {
 }
 
 .dark .liquid-glass {
-    background: rgba(255, 255, 255, 0.05); /* Original dark mode glass */
-    border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  /* Original dark mode glass */
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* Smooth Glow Effect */
