@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+    darkMode: 'class',
     content: [
         "./index.html",
         "./src/**/*.{js,ts,jsx,tsx}",
@@ -10,6 +11,9 @@ module.exports = {
                 background: 'rgb(var(--background) / <alpha-value>)',
                 surface: 'rgb(var(--surface) / <alpha-value>)',
                 'surface-elevated': 'rgb(var(--surface-elevated) / <alpha-value>)',
+                'text-primary': 'rgb(var(--text-primary) / <alpha-value>)',
+                'text-secondary': 'rgb(var(--text-secondary) / <alpha-value>)',
+                'text-tertiary': 'rgb(var(--text-tertiary) / <alpha-value>)',
                 primary: {
                     DEFAULT: 'rgb(var(--primary) / <alpha-value>)',
                     dark: '#6d28d9',
