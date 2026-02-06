@@ -57,8 +57,8 @@ const NoteDetailPage = () => {
     if (!note) {
         return (
             <div className="flex flex-col items-center justify-center h-[60vh] text-center">
-                <p className="text-lg text-white/60 mb-4">Note introuvable</p>
-                <Link to="/notes" className="text-primary-light hover:underline">
+                <p className="text-lg text-text-secondary mb-4">Note introuvable</p>
+                <Link to="/notes" className="text-primary hover:underline">
                     Retour aux notes
                 </Link>
             </div>
@@ -119,10 +119,10 @@ const NoteDetailPage = () => {
     return (
         <div className="flex flex-col h-[calc(100vh-140px)] h-[calc(100dvh-140px)]">
             {/* Header */}
-            <div className="flex items-center justify-between pb-4 border-b border-white/5">
+            <div className="flex items-center justify-between pb-4 border-b border-border">
                 <button
                     onClick={() => navigate('/notes')}
-                    className="flex items-center gap-2 text-white/50 hover:text-white transition-colors active:scale-95"
+                    className="flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors active:scale-95"
                 >
                     <ArrowLeft size={18} />
                     <span className="text-sm">Retour</span>
@@ -163,18 +163,18 @@ const NoteDetailPage = () => {
             </div>
 
             {/* Title and Meta */}
-            <div className="py-3 border-b border-white/5">
-                <h1 className="text-lg font-semibold text-white mb-1">
+            <div className="py-3 border-b border-border">
+                <h1 className="text-lg font-semibold text-text-primary mb-1">
                     {note.title || 'Note sans titre'}
                 </h1>
                 <div className="flex items-center gap-3 flex-wrap">
-                    <span className="text-xs text-white/40 uppercase tracking-wider">{note.date}</span>
+                    <span className="text-xs text-text-tertiary uppercase tracking-wider">{note.date}</span>
                     {note.tags && note.tags.length > 0 && (
                         <div className="flex flex-wrap gap-1.5">
                             {note.tags.map((tag, i) => (
                                 <span
                                     key={i}
-                                    className="px-2 py-0.5 bg-primary/10 text-primary-light text-xxs rounded-full"
+                                    className="px-2 py-0.5 bg-primary/10 text-primary-dark dark:text-primary-light text-xxs rounded-full"
                                 >
                                     {tag}
                                 </span>
@@ -185,24 +185,24 @@ const NoteDetailPage = () => {
             </div>
 
             {/* Tabs */}
-            <div className="flex gap-1 p-1.5 bg-white/[0.04] rounded-xl mb-4 border border-white/5">
+            <div className="flex gap-1 p-1.5 bg-surface-elevated rounded-xl mb-4 border border-border">
                 <button
                     onClick={() => setActiveTab('summary')}
-                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-medium transition-all active:scale-95 ${activeTab === 'summary' ? 'bg-primary/20 text-white shadow-sm' : 'text-white/60 hover:text-white/80 hover:bg-white/5'}`}
+                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-medium transition-all active:scale-95 ${activeTab === 'summary' ? 'bg-primary/10 text-primary dark:text-white shadow-sm' : 'text-text-secondary hover:text-text-primary hover:bg-surface'}`}
                 >
                     <FileText size={14} />
                     Résumé
                 </button>
                 <button
                     onClick={() => setActiveTab('transcript')}
-                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-medium transition-all active:scale-95 ${activeTab === 'transcript' ? 'bg-primary/20 text-white shadow-sm' : 'text-white/60 hover:text-white/80 hover:bg-white/5'}`}
+                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-medium transition-all active:scale-95 ${activeTab === 'transcript' ? 'bg-primary/10 text-primary dark:text-white shadow-sm' : 'text-text-secondary hover:text-text-primary hover:bg-surface'}`}
                 >
                     <FileText size={14} />
                     Brut
                 </button>
                 <button
                     onClick={() => setActiveTab('chat')}
-                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-medium transition-all active:scale-95 relative ${activeTab === 'chat' ? 'bg-primary/20 text-white shadow-sm' : 'text-white/60 hover:text-white/80 hover:bg-white/5'}`}
+                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-medium transition-all active:scale-95 relative ${activeTab === 'chat' ? 'bg-primary/10 text-primary dark:text-white shadow-sm' : 'text-text-secondary hover:text-text-primary hover:bg-surface'}`}
                 >
                     <MessageSquare size={14} />
                     Explorer
@@ -236,8 +236,8 @@ const NoteDetailPage = () => {
                             exit={{ opacity: 0, x: 10 }}
                             className="h-full overflow-y-auto scrollbar-hide"
                         >
-                            <div className="glass-panel p-4 rounded-xl">
-                                <p className="text-white/70 font-light leading-relaxed text-sm whitespace-pre-wrap">
+                            <div className="glass-panel p-4 rounded-xl bg-surface-elevated border border-border">
+                                <p className="text-text-secondary font-light leading-relaxed text-sm whitespace-pre-wrap">
                                     {note.text || "Aucune transcription disponible."}
                                 </p>
                             </div>
@@ -254,13 +254,13 @@ const NoteDetailPage = () => {
                         >
                             {/* Chat Header with Clear History */}
                             {hasChatHistory && (
-                                <div className="flex items-center justify-between mb-3 pb-2 border-b border-white/5">
-                                    <span className="text-xs text-white/40">
+                                <div className="flex items-center justify-between mb-3 pb-2 border-b border-border">
+                                    <span className="text-xs text-text-tertiary">
                                         {messages.length - 1} message{messages.length > 2 ? 's' : ''}
                                     </span>
                                     <button
                                         onClick={handleClearChat}
-                                        className="flex items-center gap-1 text-xs text-white/30 hover:text-white/60 transition-colors"
+                                        className="flex items-center gap-1 text-xs text-text-tertiary hover:text-text-primary transition-colors"
                                     >
                                         <RotateCcw size={12} />
                                         Effacer
@@ -275,7 +275,7 @@ const NoteDetailPage = () => {
                                         <button
                                             key={i}
                                             onClick={() => handleQuickQuestion(q)}
-                                            className="px-3 py-1.5 bg-white/5 border border-white/10 rounded-full text-xs text-white/60 hover:text-white hover:bg-white/10 transition-all active:scale-95"
+                                            className="px-3 py-1.5 bg-surface-elevated border border-border rounded-full text-xs text-text-secondary hover:text-text-primary hover:bg-surface transition-all active:scale-95"
                                         >
                                             {q}
                                         </button>
@@ -295,7 +295,7 @@ const NoteDetailPage = () => {
                                         <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${msg.role === 'user' ? 'bg-secondary/15 text-secondary-light' : 'bg-primary/15 text-primary-light'}`}>
                                             {msg.role === 'user' ? <User size={12} /> : <Bot size={12} />}
                                         </div>
-                                        <div className={`py-2.5 px-3.5 rounded-2xl max-w-[85%] text-sm ${msg.role === 'user' ? 'bg-secondary/10 border border-secondary/20 text-white rounded-tr-sm' : 'bg-white/[0.03] border border-white/5 rounded-tl-sm'}`}>
+                                        <div className={`py-2.5 px-3.5 rounded-2xl max-w-[85%] text-sm ${msg.role === 'user' ? 'bg-secondary/10 border border-secondary/20 text-text-primary rounded-tr-sm' : 'bg-surface-elevated border border-border rounded-tl-sm text-text-secondary'}`}>
                                             {msg.role === 'ai' ? (
                                                 <MarkdownRenderer content={msg.content} className="text-sm" />
                                             ) : (
@@ -310,7 +310,7 @@ const NoteDetailPage = () => {
                                         <div className="w-7 h-7 rounded-lg bg-primary/15 flex items-center justify-center">
                                             <Bot size={12} className="text-primary-light" />
                                         </div>
-                                        <div className="bg-white/[0.03] border border-white/5 py-2.5 px-3.5 rounded-2xl rounded-tl-sm">
+                                        <div className="bg-surface-elevated border border-border py-2.5 px-3.5 rounded-2xl rounded-tl-sm">
                                             <div className="flex items-center gap-1">
                                                 <span className="w-1.5 h-1.5 bg-primary-light rounded-full animate-bounce" />
                                                 <span className="w-1.5 h-1.5 bg-primary-light rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
@@ -331,12 +331,12 @@ const NoteDetailPage = () => {
                                         value={input}
                                         onChange={(e) => setInput(e.target.value)}
                                         placeholder="Posez une question..."
-                                        className="flex-1 bg-surface-elevated border border-white/5 rounded-xl py-3 px-4 text-sm text-white font-light placeholder-white/30 focus:outline-none focus:border-primary/40 transition-all"
+                                        className="flex-1 bg-surface-elevated border border-border rounded-xl py-3 px-4 text-sm text-text-primary font-light placeholder-text-tertiary focus:outline-none focus:border-primary/40 transition-all"
                                     />
                                     <button
                                         type="submit"
                                         disabled={isLoading || !input.trim()}
-                                        className={`p-3 rounded-xl transition-all active:scale-95 ${input.trim() && !isLoading ? 'bg-primary text-white' : 'bg-white/5 text-white/30'}`}
+                                        className={`p-3 rounded-xl transition-all active:scale-95 ${input.trim() && !isLoading ? 'bg-primary text-white' : 'bg-surface-elevated text-text-tertiary'}`}
                                     >
                                         <Send size={16} />
                                     </button>

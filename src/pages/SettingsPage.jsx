@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useSubscription } from '../context/SubscriptionContext';
-import { Activity, Crown, ChevronRight, Bell, Shield, HelpCircle, FileText, Mail, LogOut, ExternalLink, Key, Eye, EyeOff, Check, Sparkles } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
+import { Activity, Crown, ChevronRight, Bell, Shield, HelpCircle, FileText, Mail, LogOut, ExternalLink, Key, Eye, EyeOff, Check, Sparkles, Moon, Sun } from 'lucide-react';
 import { testConnection, getStoredApiKey, setStoredApiKey, getSummaryStyle, setSummaryStyle, getSummaryStyleOptions } from '../services/ai';
-import { motion } from 'framer-motion';
 
 const SettingsPage = ({ onUpgradeClick }) => {
+    const { theme, toggleTheme } = useTheme();
     // API Key state - initialize from localStorage
     const [apiKey, setApiKey] = useState(() => getStoredApiKey() || '');
     const [showApiKey, setShowApiKey] = useState(false);
@@ -52,8 +53,19 @@ const SettingsPage = ({ onUpgradeClick }) => {
                     icon: Crown,
                     label: 'Abonnement',
                     value: isPremium ? 'Premium' : 'Gratuit',
-                    color: isPremium ? 'text-primary-light' : 'text-white/50',
+                    color: isPremium ? 'text-primary' : 'text-text-secondary',
                     action: isPremium ? handleManageSubscription : onUpgradeClick
+                }
+            ]
+        },
+        {
+            title: 'Apparence',
+            items: [
+                {
+                    icon: theme === 'dark' ? Moon : Sun,
+                    label: 'Thème',
+                    value: theme === 'dark' ? 'Sombre' : 'Clair',
+                    action: toggleTheme
                 }
             ]
         },
@@ -117,7 +129,7 @@ const SettingsPage = ({ onUpgradeClick }) => {
                 {
                     icon: LogOut,
                     label: 'Déconnexion',
-                    color: 'text-red-400',
+                    color: 'text-red-500',
                     action: () => {
                         if (window.confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
                             // Clear local storage or handle logout logic
@@ -133,33 +145,31 @@ const SettingsPage = ({ onUpgradeClick }) => {
     return (
         <div className="pb-20">
             {/* Subscription Card */}
-            <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className={`p-5 rounded-2xl mb-6 ${isPremium
+            <div
+                className={`p-5 rounded-2xl mb-6 transition-colors duration-200 ${isPremium
                     ? 'bg-gradient-to-br from-primary/20 via-accent/10 to-secondary/10 border border-primary/30'
-                    : 'bg-white/[0.03] border border-white/10'
+                    : 'bg-surface-elevated border border-border'
                     }`}
             >
                 <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
                         <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${isPremium
                             ? 'bg-gradient-to-br from-primary to-accent'
-                            : 'bg-white/10'
+                            : 'bg-surface dark:bg-white/10'
                             }`}>
-                            <Crown size={22} className="text-white" />
+                            <Crown size={22} className={isPremium ? 'text-white' : 'text-text-primary'} />
                         </div>
                         <div>
-                            <h3 className="font-semibold text-white">
+                            <h3 className="font-semibold text-text-primary">
                                 {isPremium ? 'Premium' : 'Plan Gratuit'}
                             </h3>
                             {isPremium && daysLeft !== null && (
-                                <p className="text-xs text-white/50">
+                                <p className="text-xs text-text-secondary">
                                     {daysLeft > 0 ? `Renouvellement dans ${daysLeft} jour${daysLeft > 1 ? 's' : ''}` : 'Renouvellement aujourd\'hui'}
                                 </p>
                             )}
                             {!isPremium && (
-                                <p className="text-xs text-white/50">
+                                <p className="text-xs text-text-secondary">
                                     {usage.transcriptionsThisMonth}/{currentTier.limits.transcriptionsPerMonth} transcriptions utilisées
                                 </p>
                             )}
@@ -170,7 +180,7 @@ const SettingsPage = ({ onUpgradeClick }) => {
                 {isPremium ? (
                     <button
                         onClick={handleManageSubscription}
-                        className="w-full py-2.5 px-4 bg-white/10 text-white/70 rounded-xl text-sm font-medium hover:bg-white/15 transition-colors flex items-center justify-center gap-2"
+                        className="w-full py-2.5 px-4 bg-surface dark:bg-white/10 text-text-secondary dark:text-white/70 rounded-xl text-sm font-medium hover:bg-surface-elevated dark:hover:bg-white/15 transition-colors flex items-center justify-center gap-2"
                     >
                         Gérer l'abonnement
                         <ExternalLink size={14} />
@@ -184,22 +194,19 @@ const SettingsPage = ({ onUpgradeClick }) => {
                         Passer à Premium
                     </button>
                 )}
-            </motion.div>
+            </div>
 
             {/* API Key Configuration */}
-            <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="p-5 rounded-2xl mb-6 bg-white/[0.03] border border-white/10"
+            <div
+                className="p-5 rounded-2xl mb-6 bg-surface-elevated border border-border"
             >
                 <div className="flex items-center gap-3 mb-4">
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-yellow-500/20 to-orange-500/20 flex items-center justify-center">
-                        <Key size={18} className="text-yellow-400" />
+                        <Key size={18} className="text-yellow-500 dark:text-yellow-400" />
                     </div>
                     <div>
-                        <h3 className="font-semibold text-white text-sm">Clé API Gemini</h3>
-                        <p className="text-xs text-white/40">Configurez votre propre clé</p>
+                        <h3 className="font-semibold text-text-primary text-sm">Clé API Gemini</h3>
+                        <p className="text-xs text-text-secondary">Configurez votre propre clé</p>
                     </div>
                 </div>
 
@@ -209,11 +216,11 @@ const SettingsPage = ({ onUpgradeClick }) => {
                         value={apiKey}
                         onChange={(e) => setApiKey(e.target.value)}
                         placeholder="AIzaSy..."
-                        className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 pr-12 text-sm text-white placeholder-white/30 focus:outline-none focus:border-primary/50"
+                        className="w-full bg-surface dark:bg-white/5 border border-border dark:border-white/10 rounded-xl px-4 py-3 pr-12 text-sm text-text-primary placeholder-text-tertiary focus:outline-none focus:border-primary/50"
                     />
                     <button
                         onClick={() => setShowApiKey(!showApiKey)}
-                        className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white/60"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-text-tertiary hover:text-text-secondary"
                     >
                         {showApiKey ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>
@@ -223,39 +230,36 @@ const SettingsPage = ({ onUpgradeClick }) => {
                     <button
                         onClick={handleSaveApiKey}
                         className={`flex-1 py-2.5 px-4 rounded-xl text-sm font-medium transition-all flex items-center justify-center gap-2 ${apiKeySaved
-                            ? 'bg-green-500/20 text-green-400 border border-green-500/30'
-                            : 'bg-primary/20 text-primary-light border border-primary/30 hover:bg-primary/30'
+                            ? 'bg-green-500/20 text-green-600 dark:text-green-400 border border-green-500/30'
+                            : 'bg-primary/10 text-primary dark:text-primary-light border border-primary/30 hover:bg-primary/20'
                             }`}
                     >
                         {apiKeySaved ? <><Check size={16} /> Sauvegardé !</> : 'Sauvegarder'}
                     </button>
                     <button
                         onClick={handleTestConnection}
-                        className="py-2.5 px-4 bg-white/10 text-white/70 rounded-xl text-sm font-medium hover:bg-white/15 transition-colors"
+                        className="py-2.5 px-4 bg-surface dark:bg-white/10 text-text-secondary dark:text-white/70 rounded-xl text-sm font-medium hover:bg-surface-elevated dark:hover:bg-white/15 transition-colors"
                     >
                         Tester
                     </button>
                 </div>
 
-                <p className="text-xs text-white/30 mt-3">
-                    Obtenez une clé sur <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer" className="text-primary-light underline">Google AI Studio</a>
+                <p className="text-xs text-text-tertiary mt-3">
+                    Obtenez une clé sur <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener noreferrer" className="text-primary dark:text-primary-light underline">Google AI Studio</a>
                 </p>
-            </motion.div>
+            </div>
 
             {/* Summary Style Selector */}
-            <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15 }}
-                className="p-5 rounded-2xl mb-6 bg-white/[0.03] border border-white/10"
+            <div
+                className="p-5 rounded-2xl mb-6 bg-surface-elevated border border-border"
             >
                 <div className="flex items-center gap-3 mb-4">
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                        <Sparkles size={18} className="text-primary-light" />
+                        <Sparkles size={18} className="text-primary dark:text-primary-light" />
                     </div>
                     <div>
-                        <h3 className="font-semibold text-white text-sm">Style de Résumé</h3>
-                        <p className="text-xs text-white/40">Personnalisez vos résumés</p>
+                        <h3 className="font-semibold text-text-primary text-sm">Style de Résumé</h3>
+                        <p className="text-xs text-text-secondary">Personnalisez vos résumés</p>
                     </div>
                 </div>
 
@@ -265,53 +269,53 @@ const SettingsPage = ({ onUpgradeClick }) => {
                             key={option.key}
                             onClick={() => handleStyleChange(option.key)}
                             className={`w-full flex items-center gap-3 p-3 rounded-xl border transition-all ${summaryStyle === option.key
-                                    ? 'bg-primary/10 border-primary/30'
-                                    : 'bg-white/[0.02] border-white/5 hover:border-white/10'
+                                ? 'bg-primary/10 border-primary/30'
+                                : 'bg-surface dark:bg-white/[0.02] border-border dark:border-white/5 hover:border-border-hover dark:hover:border-white/10'
                                 }`}
                         >
                             <span className="text-xl">{option.emoji}</span>
                             <div className="text-left flex-1">
-                                <p className={`text-sm font-medium ${summaryStyle === option.key ? 'text-primary-light' : 'text-white/80'}`}>
+                                <p className={`text-sm font-medium ${summaryStyle === option.key ? 'text-primary dark:text-primary-light' : 'text-text-primary'}`}>
                                     {option.label}
                                 </p>
-                                <p className="text-xs text-white/40">{option.description}</p>
+                                <p className="text-xs text-text-tertiary">{option.description}</p>
                             </div>
                             {summaryStyle === option.key && (
-                                <Check size={16} className="text-primary-light" />
+                                <Check size={16} className="text-primary dark:text-primary-light" />
                             )}
                         </button>
                     ))}
                 </div>
-            </motion.div>
+            </div>
 
             {/* Menu Sections */}
             {menuSections.map((section, sIdx) => (
                 <div key={sIdx} className="mb-6">
-                    <h4 className="text-xs text-white/40 uppercase tracking-wider font-medium mb-2 px-1">
+                    <h4 className="text-xs text-text-tertiary uppercase tracking-wider font-medium mb-2 px-1">
                         {section.title}
                     </h4>
-                    <div className="bg-white/[0.02] border border-white/5 rounded-2xl overflow-hidden">
+                    <div className="bg-surface-elevated border border-border rounded-2xl overflow-hidden">
                         {section.items.map((item, iIdx) => (
                             <button
                                 key={iIdx}
                                 onClick={item.action}
-                                className={`w-full flex items-center justify-between px-4 py-3.5 hover:bg-white/[0.03] transition-colors ${iIdx !== section.items.length - 1 ? 'border-b border-white/5' : ''
+                                className={`w-full flex items-center justify-between px-4 py-3.5 hover:bg-surface transition-colors ${iIdx !== section.items.length - 1 ? 'border-b border-border' : ''
                                     }`}
                             >
                                 <div className="flex items-center gap-3">
-                                    <item.icon size={18} className={item.color || 'text-white/50'} />
-                                    <span className="text-sm text-white/80">{item.label}</span>
+                                    <item.icon size={18} className={item.color || 'text-text-secondary'} />
+                                    <span className="text-sm text-text-primary">{item.label}</span>
                                 </div>
                                 <div className="flex items-center gap-2">
                                     {item.value && (
-                                        <span className={`text-xs ${item.color || 'text-white/40'}`}>
+                                        <span className={`text-xs ${item.color || 'text-text-tertiary'}`}>
                                             {item.value}
                                         </span>
                                     )}
                                     {item.external ? (
-                                        <ExternalLink size={14} className="text-white/30" />
+                                        <ExternalLink size={14} className="text-text-tertiary" />
                                     ) : (
-                                        <ChevronRight size={16} className="text-white/20" />
+                                        <ChevronRight size={16} className="text-text-tertiary/50" />
                                     )}
                                 </div>
                             </button>
@@ -322,8 +326,8 @@ const SettingsPage = ({ onUpgradeClick }) => {
 
             {/* App Version */}
             <div className="text-center pt-4">
-                <p className="text-xs text-white/20">Voice Notes AI v1.0.0</p>
-                <p className="text-xxs text-white/10 mt-1">Made by Davis AMOUSSOU</p>
+                <p className="text-xs text-text-tertiary">Voice Notes AI v1.0.0</p>
+                <p className="text-xxs text-text-tertiary/50 mt-1">Made by Davis AMOUSSOU</p>
             </div>
         </div>
     );

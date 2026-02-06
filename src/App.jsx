@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { NotesProvider } from './context/NotesContext';
 import { SubscriptionProvider } from './context/SubscriptionContext';
+import { ThemeProvider } from './context/ThemeContext';
 import Layout from './components/Layout';
 import RecordPage from './pages/RecordPage';
 import NotesListPage from './pages/NotesListPage';
@@ -24,30 +25,32 @@ function App() {
 
   return (
     <BrowserRouter>
-      <SubscriptionProvider>
-        <NotesProvider>
-          <Layout onUpgradeClick={() => openPaywall()}>
-            <Routes>
-              <Route path="/" element={<RecordPage onUpgradeClick={openPaywall} />} />
-              <Route path="/notes" element={<NotesListPage />} />
-              <Route path="/notes/:id" element={<NoteDetailPage />} />
-              <Route path="/notes/:id/analyze" element={<AnalysisPage onUpgradeClick={openPaywall} />} />
-              <Route path="/chat" element={<ChatPage onUpgradeClick={openPaywall} />} />
-              <Route path="/settings" element={<SettingsPage onUpgradeClick={openPaywall} />} />
-              <Route path="/terms" element={<TermsPage />} />
-              <Route path="/privacy" element={<PrivacyPage />} />
-              <Route path="*" element={<Navigate to="/" replace />} />
-            </Routes>
-          </Layout>
+      <ThemeProvider>
+        <SubscriptionProvider>
+          <NotesProvider>
+            <Layout onUpgradeClick={() => openPaywall()}>
+              <Routes>
+                <Route path="/" element={<RecordPage onUpgradeClick={openPaywall} />} />
+                <Route path="/notes" element={<NotesListPage />} />
+                <Route path="/notes/:id" element={<NoteDetailPage />} />
+                <Route path="/notes/:id/analyze" element={<AnalysisPage onUpgradeClick={openPaywall} />} />
+                <Route path="/chat" element={<ChatPage onUpgradeClick={openPaywall} />} />
+                <Route path="/settings" element={<SettingsPage onUpgradeClick={openPaywall} />} />
+                <Route path="/terms" element={<TermsPage />} />
+                <Route path="/privacy" element={<PrivacyPage />} />
+                <Route path="*" element={<Navigate to="/" replace />} />
+              </Routes>
+            </Layout>
 
-          {/* Global Paywall Modal */}
-          <PaywallModal
-            isOpen={showPaywall}
-            onClose={() => setShowPaywall(false)}
-            feature={paywallFeature}
-          />
-        </NotesProvider>
-      </SubscriptionProvider>
+            {/* Global Paywall Modal */}
+            <PaywallModal
+              isOpen={showPaywall}
+              onClose={() => setShowPaywall(false)}
+              feature={paywallFeature}
+            />
+          </NotesProvider>
+        </SubscriptionProvider>
+      </ThemeProvider>
     </BrowserRouter>
   );
 }

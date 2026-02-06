@@ -1,7 +1,7 @@
+
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { Mic, FileText, MessageSquare, Settings, Menu } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 const Layout = ({ children, onUpgradeClick }) => {
     const location = useLocation();
@@ -118,12 +118,13 @@ const NavItem = ({ to, icon: Icon, label }) => (
     <NavLink
         to={to}
         className={({ isActive }) => `
-      relative flex flex-col items-center gap-1 px-3 py-2 rounded-2xl transition-all duration-200
-      active:scale-95
+      relative flex flex - col items - center gap - 1 px - 3 py - 2 rounded - 2xl transition - all duration - 200
+active: scale - 95
       ${isActive
                 ? 'text-white'
-                : 'text-white/35 hover:text-white/60'}
-    `}
+                : 'text-white/35 hover:text-white/60'
+            }
+`}
     >
         {({ isActive }) => (
             <>
@@ -133,9 +134,9 @@ const NavItem = ({ to, icon: Icon, label }) => (
                 <Icon
                     size={20}
                     strokeWidth={isActive ? 2 : 1.5}
-                    className={`relative z-10 transition-all duration-200 ${isActive ? 'text-primary-light' : ''}`}
+                    className={`relative z - 10 transition - all duration - 200 ${isActive ? 'text-primary-light' : ''} `}
                 />
-                <span className={`relative z-10 text-[9px] font-medium tracking-wider uppercase ${isActive ? 'text-primary-light' : ''}`}>
+                <span className={`relative z - 10 text - [9px] font - medium tracking - wider uppercase ${isActive ? 'text-primary-light' : ''} `}>
                     {label}
                 </span>
             </>
@@ -147,20 +148,21 @@ const SidebarItem = ({ to, icon: Icon, label }) => (
     <NavLink
         to={to}
         className={({ isActive }) => `
-      flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group
+      flex items - center gap - 3 px - 4 py - 3 rounded - xl transition - all duration - 200 group
       ${isActive
                 ? 'bg-primary/10 text-white'
-                : 'text-white/40 hover:text-white/70 hover:bg-white/5'}
-    `}
+                : 'text-white/40 hover:text-white/70 hover:bg-white/5'
+            }
+`}
     >
         {({ isActive }) => (
             <>
                 <Icon
                     size={20}
                     strokeWidth={isActive ? 2 : 1.5}
-                    className={`transition-colors duration-200 ${isActive ? 'text-primary-light' : 'group-hover:text-white/70'}`}
+                    className={`transition - colors duration - 200 ${isActive ? 'text-primary-light' : 'group-hover:text-white/70'} `}
                 />
-                <span className={`text-sm font-medium ${isActive ? 'text-white' : ''}`}>
+                <span className={`text - sm font - medium ${isActive ? 'text-white' : ''} `}>
                     {label}
                 </span>
                 {isActive && (

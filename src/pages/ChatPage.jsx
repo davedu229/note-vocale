@@ -93,12 +93,12 @@ const ChatPage = () => {
                 <div className="flex items-center justify-between px-1 py-2 mb-2">
                     <button
                         onClick={() => setShowHistory(true)}
-                        className="flex items-center gap-2 px-3 py-2 rounded-xl text-white/50 hover:text-white/80 hover:bg-white/5 transition-all"
+                        className="flex items-center gap-2 px-3 py-2 rounded-xl text-text-tertiary hover:text-text-primary hover:bg-surface-elevated transition-all"
                     >
                         <History size={16} />
                         <span className="text-xs font-medium">Historique</span>
                         {globalChatHistory.length > 0 && (
-                            <span className="text-xxs bg-white/10 text-white/50 px-1.5 py-0.5 rounded-full">
+                            <span className="text-xxs bg-surface text-text-secondary px-1.5 py-0.5 rounded-full">
                                 {globalChatHistory.length}
                             </span>
                         )}
@@ -106,7 +106,7 @@ const ChatPage = () => {
 
                     <button
                         onClick={handleNewChat}
-                        className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-primary-light bg-primary/10 hover:bg-primary/20 transition-all"
+                        className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-primary dark:text-primary-light bg-primary/10 hover:bg-primary/20 transition-all"
                     >
                         <Plus size={14} />
                         <span className="text-xs font-medium">Nouveau</span>
@@ -116,26 +116,26 @@ const ChatPage = () => {
                 {/* Context Bar */}
                 <Link
                     to="/notes"
-                    className="flex items-center justify-between px-4 py-3 bg-white/[0.02] border border-white/5 rounded-xl mb-3 hover:bg-white/[0.04] hover:border-white/10 transition-all group"
+                    className="flex items-center justify-between px-4 py-3 bg-surface-elevated border border-border rounded-xl mb-3 hover:bg-surface hover:border-border-hover transition-all group"
                 >
                     <div className="flex items-center gap-2.5">
-                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${selectedNotesCount > 0 ? 'bg-primary/15' : 'bg-white/5'}`}>
-                            <FileText size={14} className={selectedNotesCount > 0 ? 'text-primary-light' : 'text-white/40'} />
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${selectedNotesCount > 0 ? 'bg-primary/15' : 'bg-surface'}`}>
+                            <FileText size={14} className={selectedNotesCount > 0 ? 'text-primary dark:text-primary-light' : 'text-text-tertiary'} />
                         </div>
                         <div>
-                            <p className="text-xs font-medium text-white/70">
+                            <p className="text-xs font-medium text-text-secondary">
                                 {selectedNotesCount > 0
                                     ? `${selectedNotesCount} note${selectedNotesCount > 1 ? 's' : ''} en contexte`
                                     : 'Aucun contexte'}
                             </p>
-                            <p className="text-xxs text-white/40">
+                            <p className="text-xxs text-text-tertiary">
                                 {selectedNotesCount > 0
                                     ? 'L\'IA se base sur ces notes'
                                     : 'Sélectionnez des notes pour des réponses précises'}
                             </p>
                         </div>
                     </div>
-                    <span className="flex items-center gap-1 text-xxs text-primary-light uppercase tracking-wider font-medium group-hover:translate-x-0.5 transition-transform">
+                    <span className="flex items-center gap-1 text-xxs text-primary dark:text-primary-light uppercase tracking-wider font-medium group-hover:translate-x-0.5 transition-transform">
                         Modifier <ChevronRight size={12} />
                     </span>
                 </Link>
@@ -155,8 +155,8 @@ const ChatPage = () => {
                                 <div className={`
                     w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0
                     ${msg.role === 'user'
-                                        ? 'bg-secondary/15 text-secondary-light'
-                                        : 'bg-primary/15 text-primary-light'}
+                                        ? 'bg-secondary/15 text-secondary dark:text-secondary-light'
+                                        : 'bg-primary/15 text-primary dark:text-primary-light'}
                   `}>
                                     {msg.role === 'user'
                                         ? <User size={14} strokeWidth={2} />
@@ -168,8 +168,8 @@ const ChatPage = () => {
                                 <div className={`
                     py-3 px-4 rounded-2xl max-w-[85%] text-sm
                     ${msg.role === 'user'
-                                        ? 'bg-secondary/10 border border-secondary/20 text-white rounded-tr-sm'
-                                        : 'bg-white/[0.03] border border-white/5 rounded-tl-sm'}
+                                        ? 'bg-secondary/10 border border-secondary/20 text-text-primary rounded-tr-sm'
+                                        : 'bg-surface-elevated border border-border rounded-tl-sm text-text-secondary'}
                   `}>
                                     {msg.role === 'ai' ? (
                                         <MarkdownRenderer content={msg.content} />
@@ -189,16 +189,16 @@ const ChatPage = () => {
                             className="flex gap-3"
                         >
                             <div className="w-8 h-8 rounded-xl bg-primary/15 flex items-center justify-center">
-                                <Bot size={14} className="text-primary-light" />
+                                <Bot size={14} className="text-primary dark:text-primary-light" />
                             </div>
-                            <div className="bg-white/[0.03] border border-white/5 py-3 px-4 rounded-2xl rounded-tl-sm">
+                            <div className="bg-surface-elevated border border-border py-3 px-4 rounded-2xl rounded-tl-sm">
                                 <div className="flex items-center gap-1.5">
                                     {[0, 1, 2].map(i => (
                                         <motion.span
                                             key={i}
                                             animate={{ opacity: [0.3, 1, 0.3] }}
                                             transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
-                                            className="w-1.5 h-1.5 bg-primary-light rounded-full"
+                                            className="w-1.5 h-1.5 bg-primary dark:bg-primary-light rounded-full"
                                         />
                                     ))}
                                 </div>
@@ -223,9 +223,9 @@ const ChatPage = () => {
                                     : "Sélectionnez des notes pour commencer..."
                             }
                             className="
-                  flex-1 bg-surface-elevated border border-white/5 rounded-2xl 
-                  py-3.5 px-5 text-sm text-white font-light
-                  placeholder-white/30 
+                  flex-1 bg-surface-elevated border border-border rounded-2xl 
+                  py-3.5 px-5 text-sm text-text-primary font-light
+                  placeholder-text-tertiary 
                   focus:outline-none focus:border-primary/40 focus:ring-1 focus:ring-primary/20
                   transition-all duration-200
                 "
@@ -238,7 +238,7 @@ const ChatPage = () => {
                   p-3.5 rounded-2xl transition-all duration-200
                   ${input.trim() && !isLoading
                                     ? 'bg-primary text-white shadow-lg shadow-primary/25'
-                                    : 'bg-white/5 text-white/30'}
+                                    : 'bg-surface text-text-tertiary'}
                 `}
                         >
                             <Send size={18} />

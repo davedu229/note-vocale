@@ -7,13 +7,14 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                background: '#030303',
-                surface: '#0a0a0f',
-                'surface-elevated': '#111118',
+                background: 'rgb(var(--background) / <alpha-value>)',
+                surface: 'rgb(var(--surface) / <alpha-value>)',
+                'surface-elevated': 'rgb(var(--surface-elevated) / <alpha-value>)',
                 primary: {
-                    DEFAULT: '#8b5cf6',
+                    DEFAULT: 'rgb(var(--primary) / <alpha-value>)',
                     dark: '#6d28d9',
                     light: '#a78bfa',
+                    foreground: 'rgb(var(--primary-foreground) / <alpha-value>)',
                 },
                 secondary: {
                     DEFAULT: '#06b6d4',
@@ -25,6 +26,8 @@ module.exports = {
                     dark: '#ec4899',
                     light: '#f9a8d4',
                 },
+                border: 'rgb(var(--border) / <alpha-value>)',
+                'border-hover': 'rgb(var(--border-hover) / <alpha-value>)',
             },
             fontFamily: {
                 sans: ['Inter', 'system-ui', 'sans-serif'],
