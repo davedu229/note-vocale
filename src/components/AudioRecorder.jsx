@@ -110,31 +110,36 @@ const AudioRecorder = ({ onTranscriptUpdate, onRecordingStop, isProcessing }) =>
     }, [startTimer]);
 
     const pauseRecording = useCallback(() => {
+        console.log('Pause triggered, current state:', isPaused);
         isPausedRef.current = true;
         setIsPaused(true);
         stopTimer();
 
-        try {
-            recognitionRef.current?.stop();
-        } catch (err) {
-            console.log('Recognition stop skipped');
-        }
-    }, [stopTimer]);
+        // Delay stopping recognition to avoid race conditions
+        setTimeout(() => {
+            try {
+                recognitionRef.current?.stop();
+            } catch (err) {
+                console.log('Recognition stop skipped');
+            }
+        }, 50);
+    }, [stopTimer, isPaused]);
 
     const resumeRecording = useCallback(() => {
+        console.log('Resume triggered, current state:', isPaused);
         isPausedRef.current = false;
         setIsPaused(false);
         startTimer();
 
-        // Small delay before restarting recognition
+        // Slightly longer delay before restarting recognition
         setTimeout(() => {
             try {
                 recognitionRef.current?.start();
             } catch (err) {
                 console.error('Failed to resume recognition:', err);
             }
-        }, 150);
-    }, [startTimer]);
+        }, 200);
+    }, [startTimer, isPaused]);
 
     const stopRecording = useCallback(() => {
         isRecordingRef.current = false;
@@ -272,14 +277,22 @@ const AudioRecorder = ({ onTranscriptUpdate, onRecordingStop, isProcessing }) =>
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
-                        onClick={isPaused ? resumeRecording : pauseRecording}
-                        whileTap={{ scale: 0.95 }}
+                        onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            if (isPaused) {
+                                resumeRecording();
+                            } else {
+                                pauseRecording();
+                            }
+                        }}
+                        type="button"
                         className={`
               flex items-center gap-2 px-6 py-3 rounded-full font-medium text-sm
-              transition-colors duration-200 active:scale-95
+              transition-all duration-200 cursor-pointer select-none
               ${isPaused
-                                ? 'bg-green-500/20 text-green-400 border-2 border-green-500/40 hover:bg-green-500/30'
-                                : 'bg-yellow-500/20 text-yellow-400 border-2 border-yellow-500/40 hover:bg-yellow-500/30'}
+                                ? 'bg-green-500/20 text-green-400 border-2 border-green-500/40 hover:bg-green-500/30 active:bg-green-500/40'
+                                : 'bg-yellow-500/20 text-yellow-400 border-2 border-yellow-500/40 hover:bg-yellow-500/30 active:bg-yellow-500/40'}
             `}
                     >
                         {isPaused ? (
