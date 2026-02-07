@@ -6,9 +6,9 @@
 
 @layer base {
   :root {
-    /* Light Mode Variables (Default) */
-    --background: 248 249 250;
-    /* #f8f9fa - Off-white */
+    /* Light Mode Variables (Corporate) */
+    --background: 249 250 251;
+    /* #f9fafb - Cool gray-50 */
     --surface: 255 255 255;
     /* #ffffff - White */
     --surface-elevated: 255 255 255;
@@ -26,31 +26,37 @@
     --border-hover: 209 213 219;
     /* #d1d5db - Gray-300 */
 
-    /* Primary / Accent remain consistent but can be tweaked if needed */
-    --primary: 139 92 246;
-    /* #8b5cf6 - Violet-500 */
+    /* Primary - Corporate Blue */
+    --primary: 59 130 246;
+    /* #3b82f6 - Blue-500 */
     --primary-foreground: 255 255 255;
   }
 
   .dark {
-    /* Dark Mode Variables */
-    --background: 3 3 3;
-    /* #030303 - Deep Black */
-    --surface: 10 10 15;
-    /* #0a0a0f - Dark Gray */
-    --surface-elevated: 17 17 24;
-    /* #111118 - Elevated Dark */
+    /* Dark Mode Variables (Corporate) */
+    --background: 17 24 39;
+    /* #111827 - Gray-900 */
+    --surface: 31 41 55;
+    /* #1f2937 - Gray-800 */
+    --surface-elevated: 55 65 81;
+    /* #374151 - Gray-700 */
 
-    --text-primary: 255 255 255;
-    /* #ffffff - White */
+    --text-primary: 249 250 251;
+    /* #f9fafb - Gray-50 */
     --text-secondary: 156 163 175;
-    /* #9ca3af - Gray-400 (adjusted for readability) */
-    --text-tertiary: 75 85 99;
-    /* #4b5563 - Gray-600 */
+    /* #9ca3af - Gray-400 */
+    --text-tertiary: 107 114 128;
+    /* #6b7280 - Gray-500 */
 
-    --border: 255 255 255;
-    /* Opacity handled in utility classes usually, but base color is white */
-    --border-hover: 255 255 255;
+    --border: 75 85 99;
+    /* #4b5563 - Gray-600 */
+    --border-hover: 107 114 128;
+    /* #6b7280 - Gray-500 */
+
+    /* Primary - Corporate Blue */
+    --primary: 59 130 246;
+    /* #3b82f6 - Blue-500 */
+    --primary-foreground: 255 255 255;
   }
 }
 
@@ -165,42 +171,36 @@ textarea {
   display: none;
 }
 
-/* Glassmorphism Utility - iOS optimized */
+/* Clean Panel - Corporate Style */
 .glass-panel {
-  background: rgba(var(--surface), 0.7);
-  /* Adaptive glass */
-  -webkit-backdrop-filter: blur(20px);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(var(--border), 0.1);
+  background: rgb(var(--surface));
+  border: 1px solid rgb(var(--border));
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
-/* iOS 26 Liquid Glass Effect */
+/* Clean Bottom Bar */
 .liquid-glass {
-  background: rgba(var(--surface), 0.85);
-  /* More opaque for light mode readability */
-  -webkit-backdrop-filter: blur(40px) saturate(180%);
-  backdrop-filter: blur(40px) saturate(180%);
-  border-top: 1px solid rgba(var(--border), 0.1);
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05);
+  background: rgb(var(--surface));
+  border-top: 1px solid rgb(var(--border));
+  box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .dark .liquid-glass {
-  background: rgba(255, 255, 255, 0.05);
-  /* Original dark mode glass */
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgb(var(--surface));
+  border-top: 1px solid rgb(var(--border));
 }
 
-/* Smooth Glow Effect */
+/* Subtle Shadows - Corporate Style */
 .glow-primary {
-  box-shadow: 0 0 40px rgba(139, 92, 246, 0.3), 0 0 80px rgba(139, 92, 246, 0.1);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
 }
 
 .glow-accent {
-  box-shadow: 0 0 30px rgba(244, 114, 182, 0.25);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.1);
 }
 
 .glow-recording {
-  box-shadow: 0 0 50px rgba(239, 68, 68, 0.4), 0 0 100px rgba(239, 68, 68, 0.2);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
 }
 
 /* Recording Pulse Animation - GPU accelerated for iOS */
@@ -223,16 +223,10 @@ textarea {
   will-change: transform, opacity;
 }
 
-/* Gradient Text */
+/* Clean Text - No Gradients */
 .gradient-text {
-  background: linear-gradient(135deg, rgb(var(--text-primary)) 0%, rgb(var(--text-secondary)) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.dark .gradient-text {
-  background: linear-gradient(135deg, #fff 0%, rgba(255, 255, 255, 0.6) 100%);
+  color: rgb(var(--text-primary));
+  font-weight: 600;
 }
 
 /* Button Hover Effects - Touch optimized */
@@ -265,16 +259,7 @@ textarea {
   transform: scale(0.98) translateZ(0);
 }
 
-/* Noise Texture Overlay - Only in Dark Mode for aesthetic */
-.dark .noise-overlay::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  opacity: 0.02;
-  pointer-events: none;
-  z-index: 0;
-}
+/* Noise overlay removed for clean corporate look */
 
 /* iOS Safe Area utilities */
 .pb-safe {

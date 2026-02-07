@@ -30,8 +30,8 @@ const NotesListPage = () => {
             <div className="flex flex-col items-center justify-center flex-1 text-center py-16 px-6">
                 {/* Animated Icon Container */}
                 <div className="relative mb-6">
-                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary/20 to-accent/10 flex items-center justify-center border border-primary/20">
-                        <Mic size={32} className="text-primary dark:text-primary-light" strokeWidth={1.5} />
+                    <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
+                        <Mic size={32} className="text-primary" strokeWidth={1.5} />
                     </div>
                     {/* Subtle pulse rings */}
                     <div className="absolute inset-[-8px] rounded-full border border-primary/20 animate-ping" style={{ animationDuration: '3s' }} />
@@ -46,7 +46,7 @@ const NotesListPage = () => {
 
                 <Link
                     to="/"
-                    className="group flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-primary-dark text-white text-sm font-medium rounded-xl shadow-lg shadow-primary/25 hover:shadow-primary/40 transition-all hover:scale-105"
+                    className="group flex items-center gap-2 px-6 py-3 bg-primary hover:bg-primary-dark text-white text-sm font-medium rounded-lg shadow-sm hover:shadow-md transition-all"
                 >
                     <Mic size={16} />
                     <span>Créer ma première note</span>
@@ -155,7 +155,7 @@ const NotesListPage = () => {
                                         {note.tags.map((tag, i) => (
                                             <span
                                                 key={i}
-                                                className="px-2 py-0.5 bg-primary/10 text-primary-dark dark:text-primary-light text-xxs rounded-full"
+                                                className="px-2 py-0.5 bg-primary/10 text-primary text-xxs rounded-md font-medium"
                                             >
                                                 {tag}
                                             </span>

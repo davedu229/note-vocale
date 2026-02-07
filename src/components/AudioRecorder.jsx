@@ -170,7 +170,7 @@ const AudioRecorder = ({ onTranscriptUpdate, onRecordingStop, isProcessing }) =>
                         className="flex items-center gap-3"
                     >
                         <span className={`w-2.5 h-2.5 rounded-full ${isPaused ? 'bg-yellow-500' : 'bg-red-500 animate-pulse'}`} />
-                        <span className="text-xl font-mono text-white/90 tracking-widest">
+                        <span className="text-xl font-mono text-text-primary tracking-widest">
                             {formatTime(duration)}
                         </span>
                         {isPaused && (
@@ -232,10 +232,10 @@ const AudioRecorder = ({ onTranscriptUpdate, onRecordingStop, isProcessing }) =>
                     whileHover={{ scale: 1.05 }}
                     className={`
             relative z-10 w-24 h-24 rounded-full flex items-center justify-center
-            transition-all duration-500 ease-out
+            transition-all duration-300 ease-out
             ${isRecording
-                            ? 'bg-gradient-to-br from-red-500 to-red-600 shadow-lg shadow-red-500/30'
-                            : 'bg-gradient-to-br from-primary to-primary-dark shadow-xl shadow-primary/40 hover:shadow-primary/50'}
+                            ? 'bg-red-500 shadow-md shadow-red-500/20'
+                            : 'bg-primary shadow-md shadow-primary/20 hover:shadow-lg hover:shadow-primary/30'}
             ${isProcessing ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
           `}
                 >
@@ -298,7 +298,7 @@ const AudioRecorder = ({ onTranscriptUpdate, onRecordingStop, isProcessing }) =>
             </AnimatePresence>
 
             {/* Status Text */}
-            <p className="text-sm text-white/50 font-light tracking-wide text-center">
+            <p className="text-sm text-text-tertiary font-light tracking-wide text-center">
                 {isPaused
                     ? 'Enregistrement en pause'
                     : isRecording

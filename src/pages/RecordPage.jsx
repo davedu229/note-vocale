@@ -88,8 +88,8 @@ const RecordPage = ({ onUpgradeClick }) => {
                     >
                         {/* Processing Animation */}
                         <div className="relative">
-                            <div className="w-20 h-20 rounded-full bg-gradient-to-br from-accent/20 to-primary/20 flex items-center justify-center">
-                                <Sparkles className="w-8 h-8 text-accent animate-pulse" />
+                            <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center">
+                                <Sparkles className="w-8 h-8 text-primary animate-pulse" />
                             </div>
                             <motion.div
                                 animate={{ rotate: 360 }}
@@ -99,10 +99,10 @@ const RecordPage = ({ onUpgradeClick }) => {
                         </div>
 
                         <div className="text-center space-y-2">
-                            <p className="text-lg font-medium text-white/90">
+                            <p className="text-lg font-medium text-text-primary">
                                 Analyse en cours
                             </p>
-                            <p className="text-sm text-white/40 font-light">
+                            <p className="text-sm text-text-tertiary font-light">
                                 Génération du résumé intelligent...
                             </p>
                         </div>
@@ -126,7 +126,7 @@ const RecordPage = ({ onUpgradeClick }) => {
                 <motion.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="text-center text-xs text-white/30 mt-4"
+                    className="text-center text-xs text-text-tertiary mt-4"
                 >
                     {remaining} transcription{remaining > 1 ? 's' : ''} gratuite{remaining > 1 ? 's' : ''} restante{remaining > 1 ? 's' : ''}
                 </motion.p>
