@@ -174,7 +174,7 @@ const NoteDetailPage = () => {
                             {note.tags.map((tag, i) => (
                                 <span
                                     key={i}
-                                    className="px-2 py-0.5 bg-primary/10 text-primary-dark dark:text-primary-light text-xxs rounded-full"
+                                    className="px-2 py-0.5 bg-primary/10 text-primary text-xxs rounded-md font-medium"
                                 >
                                     {tag}
                                 </span>
@@ -188,21 +188,21 @@ const NoteDetailPage = () => {
             <div className="flex gap-1 p-1.5 bg-surface-elevated rounded-xl mb-4 border border-border">
                 <button
                     onClick={() => setActiveTab('summary')}
-                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-medium transition-all active:scale-95 ${activeTab === 'summary' ? 'bg-primary/10 text-primary dark:text-white shadow-sm' : 'text-text-secondary hover:text-text-primary hover:bg-surface'}`}
+                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-medium transition-all active:scale-95 ${activeTab === 'summary' ? 'bg-primary text-white shadow-sm' : 'text-text-secondary hover:text-text-primary hover:bg-surface'}`}
                 >
                     <FileText size={14} />
                     Résumé
                 </button>
                 <button
                     onClick={() => setActiveTab('transcript')}
-                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-medium transition-all active:scale-95 ${activeTab === 'transcript' ? 'bg-primary/10 text-primary dark:text-white shadow-sm' : 'text-text-secondary hover:text-text-primary hover:bg-surface'}`}
+                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-medium transition-all active:scale-95 ${activeTab === 'transcript' ? 'bg-primary text-white shadow-sm' : 'text-text-secondary hover:text-text-primary hover:bg-surface'}`}
                 >
                     <FileText size={14} />
                     Brut
                 </button>
                 <button
                     onClick={() => setActiveTab('chat')}
-                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-medium transition-all active:scale-95 relative ${activeTab === 'chat' ? 'bg-primary/10 text-primary dark:text-white shadow-sm' : 'text-text-secondary hover:text-text-primary hover:bg-surface'}`}
+                    className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-medium transition-all active:scale-95 relative ${activeTab === 'chat' ? 'bg-primary text-white shadow-sm' : 'text-text-secondary hover:text-text-primary hover:bg-surface'}`}
                 >
                     <MessageSquare size={14} />
                     Explorer
@@ -292,7 +292,7 @@ const NoteDetailPage = () => {
                                         animate={{ opacity: 1, y: 0 }}
                                         className={`flex gap-2.5 ${msg.role === 'user' ? 'flex-row-reverse' : ''}`}
                                     >
-                                        <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${msg.role === 'user' ? 'bg-secondary/15 text-secondary-light' : 'bg-primary/15 text-primary-light'}`}>
+                                        <div className={`w-7 h-7 rounded-lg flex items-center justify-center flex-shrink-0 ${msg.role === 'user' ? 'bg-secondary/15 text-secondary' : 'bg-primary/15 text-primary'}`}>
                                             {msg.role === 'user' ? <User size={12} /> : <Bot size={12} />}
                                         </div>
                                         <div className={`py-2.5 px-3.5 rounded-2xl max-w-[85%] text-sm ${msg.role === 'user' ? 'bg-secondary/10 border border-secondary/20 text-text-primary rounded-tr-sm' : 'bg-surface-elevated border border-border rounded-tl-sm text-text-secondary'}`}>
@@ -312,9 +312,9 @@ const NoteDetailPage = () => {
                                         </div>
                                         <div className="bg-surface-elevated border border-border py-2.5 px-3.5 rounded-2xl rounded-tl-sm">
                                             <div className="flex items-center gap-1">
-                                                <span className="w-1.5 h-1.5 bg-primary-light rounded-full animate-bounce" />
-                                                <span className="w-1.5 h-1.5 bg-primary-light rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
-                                                <span className="w-1.5 h-1.5 bg-primary-light rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+                                                <span className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" />
+                                                <span className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
+                                                <span className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
                                             </div>
                                         </div>
                                     </div>

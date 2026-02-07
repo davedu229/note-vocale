@@ -24,7 +24,7 @@ const AnalysisPage = () => {
     if (!note) {
         return (
             <div className="flex flex-col items-center justify-center h-[60vh] text-center">
-                <p className="text-lg text-white/60 mb-4">Note introuvable</p>
+                <p className="text-lg text-text-secondary mb-4">Note introuvable</p>
                 <button
                     onClick={() => navigate('/notes')}
                     className="text-primary-light hover:underline"
@@ -89,7 +89,7 @@ const AnalysisPage = () => {
             <div className="flex items-center justify-between pb-4 border-b border-white/5">
                 <button
                     onClick={() => selectedType ? handleReset() : navigate(`/notes/${id}`)}
-                    className="flex items-center gap-2 text-white/50 hover:text-white transition-colors"
+                    className="flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors"
                 >
                     <ArrowLeft size={18} />
                     <span className="text-sm">{selectedType ? 'Changer' : 'Retour'}</span>
@@ -98,7 +98,7 @@ const AnalysisPage = () => {
                 {selectedType && (
                     <button
                         onClick={handleReset}
-                        className="flex items-center gap-1 text-xs text-white/40 hover:text-white/60 transition-colors"
+                        className="flex items-center gap-1 text-xs text-text-tertiary hover:text-text-secondary transition-colors"
                     >
                         <RotateCcw size={14} />
                         Changer d'analyse
@@ -108,8 +108,8 @@ const AnalysisPage = () => {
 
             {/* Title */}
             <div className="py-4">
-                <h1 className="text-xl font-semibold text-white/90">{getTitle()}</h1>
-                <p className="text-xs text-white/40 mt-1">{note.date}</p>
+                <h1 className="text-xl font-semibold text-text-primary">{getTitle()}</h1>
+                <p className="text-xs text-text-tertiary mt-1">{note.date}</p>
             </div>
 
             {/* Content */}
@@ -136,8 +136,8 @@ const AnalysisPage = () => {
                                 <Loader2 className="w-12 h-12 text-primary animate-spin" />
                             </div>
                             <div className="text-center">
-                                <p className="text-white/80 font-medium">Analyse en cours...</p>
-                                <p className="text-sm text-white/40 mt-1">Extraction des informations</p>
+                                <p className="text-text-primary font-medium">Analyse en cours...</p>
+                                <p className="text-sm text-text-tertiary mt-1">Extraction des informations</p>
                             </div>
                         </motion.div>
                     ) : error ? (
@@ -150,8 +150,8 @@ const AnalysisPage = () => {
                         >
                             <span className="text-4xl">⚠️</span>
                             <div>
-                                <p className="text-white/80 font-medium">Erreur d'analyse</p>
-                                <p className="text-sm text-white/40 mt-1">{error}</p>
+                                <p className="text-text-primary font-medium">Erreur d'analyse</p>
+                                <p className="text-sm text-text-tertiary mt-1">{error}</p>
                             </div>
                             <button
                                 onClick={() => handleSelectType(selectedType)}

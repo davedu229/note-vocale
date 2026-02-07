@@ -19,7 +19,7 @@ const SubscriptionBanner = ({ onUpgradeClick, variant = 'full' }) => {
                     <div>
                         <p className="text-sm font-medium text-white">Premium Actif</p>
                         {daysLeft !== null && (
-                            <p className="text-xs text-white/50">
+                            <p className="text-xs text-text-tertiary">
                                 {daysLeft > 0 ? `${daysLeft} jour${daysLeft > 1 ? 's' : ''} restant${daysLeft > 1 ? 's' : ''}` : 'Expire aujourd\'hui'}
                             </p>
                         )}
@@ -61,29 +61,29 @@ const SubscriptionBanner = ({ onUpgradeClick, variant = 'full' }) => {
                         </div>
                         <div>
                             <p className="text-sm font-medium text-white">Passer à Premium</p>
-                            <p className="text-xs text-white/50">
+                            <p className="text-xs text-text-tertiary">
                                 {canStartTrial ? '7 jours d\'essai gratuit' : '7,99€/mois'}
                             </p>
                         </div>
                     </div>
-                    <ChevronRight size={18} className="text-white/30 group-hover:text-primary-light transition-colors" />
+                    <ChevronRight size={18} className="text-text-tertiary group-hover:text-primary transition-colors" />
                 </div>
 
                 {/* Usage bar */}
                 <div className="space-y-2">
                     <div className="flex items-center justify-between text-xs">
-                        <span className="text-white/40">Transcriptions ce mois</span>
-                        <span className="text-white/60">{usage.transcriptionsThisMonth}/{currentTier.limits.transcriptionsPerMonth}</span>
+                        <span className="text-text-tertiary">Transcriptions ce mois</span>
+                        <span className="text-text-secondary">{usage.transcriptionsThisMonth}/{currentTier.limits.transcriptionsPerMonth}</span>
                     </div>
                     <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
                         <motion.div
                             initial={{ width: 0 }}
                             animate={{ width: `${Math.min(100, (usage.transcriptionsThisMonth / currentTier.limits.transcriptionsPerMonth) * 100)}%` }}
                             className={`h-full rounded-full ${usage.transcriptionsThisMonth >= currentTier.limits.transcriptionsPerMonth
-                                    ? 'bg-red-500'
-                                    : usage.transcriptionsThisMonth >= currentTier.limits.transcriptionsPerMonth - 1
-                                        ? 'bg-yellow-500'
-                                        : 'bg-primary'
+                                ? 'bg-red-500'
+                                : usage.transcriptionsThisMonth >= currentTier.limits.transcriptionsPerMonth - 1
+                                    ? 'bg-yellow-500'
+                                    : 'bg-primary'
                                 }`}
                         />
                     </div>

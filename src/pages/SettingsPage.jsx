@@ -180,7 +180,7 @@ const SettingsPage = ({ onUpgradeClick }) => {
                 {isPremium ? (
                     <button
                         onClick={handleManageSubscription}
-                        className="w-full py-2.5 px-4 bg-surface dark:bg-white/10 text-text-secondary dark:text-white/70 rounded-xl text-sm font-medium hover:bg-surface-elevated dark:hover:bg-white/15 transition-colors flex items-center justify-center gap-2"
+                        className="w-full py-2.5 px-4 bg-surface dark:bg-surface-elevated text-text-secondary rounded-xl text-sm font-medium hover:bg-surface-elevated transition-colors flex items-center justify-center gap-2"
                     >
                         Gérer l'abonnement
                         <ExternalLink size={14} />
@@ -238,7 +238,7 @@ const SettingsPage = ({ onUpgradeClick }) => {
                     </button>
                     <button
                         onClick={handleTestConnection}
-                        className="py-2.5 px-4 bg-surface dark:bg-white/10 text-text-secondary dark:text-white/70 rounded-xl text-sm font-medium hover:bg-surface-elevated dark:hover:bg-white/15 transition-colors"
+                        className="py-2.5 px-4 bg-surface dark:bg-surface-elevated text-text-secondary rounded-xl text-sm font-medium hover:bg-surface-elevated transition-colors"
                     >
                         Tester
                     </button>
