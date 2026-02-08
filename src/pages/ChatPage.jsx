@@ -106,7 +106,7 @@ const ChatPage = () => {
 
                     <button
                         onClick={handleNewChat}
-                        className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-primary dark:text-primary-light bg-primary/10 hover:bg-primary/20 transition-all"
+                        className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-primary bg-primary/10 hover:bg-primary/20 transition-all"
                     >
                         <Plus size={14} />
                         <span className="text-xs font-medium">Nouveau</span>
@@ -120,7 +120,7 @@ const ChatPage = () => {
                 >
                     <div className="flex items-center gap-2.5">
                         <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${selectedNotesCount > 0 ? 'bg-primary/15' : 'bg-surface'}`}>
-                            <FileText size={14} className={selectedNotesCount > 0 ? 'text-primary dark:text-primary-light' : 'text-text-tertiary'} />
+                            <FileText size={14} className={selectedNotesCount > 0 ? 'text-primary' : 'text-text-tertiary'} />
                         </div>
                         <div>
                             <p className="text-xs font-medium text-text-secondary">
@@ -135,7 +135,7 @@ const ChatPage = () => {
                             </p>
                         </div>
                     </div>
-                    <span className="flex items-center gap-1 text-xxs text-primary dark:text-primary-light uppercase tracking-wider font-medium group-hover:translate-x-0.5 transition-transform">
+                    <span className="flex items-center gap-1 text-xxs text-primary uppercase tracking-wider font-medium group-hover:translate-x-0.5 transition-transform">
                         Modifier <ChevronRight size={12} />
                     </span>
                 </Link>
@@ -155,8 +155,8 @@ const ChatPage = () => {
                                 <div className={`
                     w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0
                     ${msg.role === 'user'
-                                        ? 'bg-secondary/15 text-secondary dark:text-secondary-light'
-                                        : 'bg-primary/15 text-primary dark:text-primary-light'}
+                                        ? 'bg-secondary/15 text-secondary'
+                                        : 'bg-primary/15 text-primary'}
                   `}>
                                     {msg.role === 'user'
                                         ? <User size={14} strokeWidth={2} />
@@ -189,7 +189,7 @@ const ChatPage = () => {
                             className="flex gap-3"
                         >
                             <div className="w-8 h-8 rounded-xl bg-primary/15 flex items-center justify-center">
-                                <Bot size={14} className="text-primary dark:text-primary-light" />
+                                <Bot size={14} className="text-primary" />
                             </div>
                             <div className="bg-surface-elevated border border-border py-3 px-4 rounded-2xl rounded-tl-sm">
                                 <div className="flex items-center gap-1.5">
@@ -198,7 +198,7 @@ const ChatPage = () => {
                                             key={i}
                                             animate={{ opacity: [0.3, 1, 0.3] }}
                                             transition={{ duration: 1, repeat: Infinity, delay: i * 0.2 }}
-                                            className="w-1.5 h-1.5 bg-primary dark:bg-primary-light rounded-full"
+                                            className="w-1.5 h-1.5 bg-primary rounded-full"
                                         />
                                     ))}
                                 </div>

@@ -68,7 +68,7 @@ const RecordPage = ({ onUpgradeClick }) => {
     const remaining = getRemainingUsage('transcription');
 
     return (
-        <div className="flex flex-col h-full justify-between py-2">
+        <div className="flex flex-col h-full justify-between py-2 max-w-3xl mx-auto w-full">
             {/* Usage indicator for free users */}
             {!isPremium && (
                 <div className="flex justify-center mb-4">

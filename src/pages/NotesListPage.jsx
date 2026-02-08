@@ -70,7 +70,7 @@ const NotesListPage = () => {
     };
 
     return (
-        <div className="flex flex-col gap-3 h-full max-w-4xl mx-auto w-full">
+        <div className="flex flex-col gap-3 h-full max-w-3xl mx-auto w-full">
             {/* Search Bar */}
             <div className="relative mb-2">
                 <Search size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-tertiary" />
