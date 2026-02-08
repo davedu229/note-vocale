@@ -23,7 +23,7 @@ const ActionMenu = ({ actions, triggerClassName = '' }) => {
         <div className="relative" ref={menuRef}>
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className={`p-2 rounded-lg text-white/50 hover:text-white/80 hover:bg-white/5 transition-all active:scale-95 ${triggerClassName}`}
+                className={`p-2 rounded-lg text-text-secondary hover:text-text-primary hover:bg-surface transition-all active:scale-95 ${triggerClassName}`}
             >
                 {isOpen ? <X size={18} /> : <MoreVertical size={18} />}
             </button>
@@ -35,7 +35,7 @@ const ActionMenu = ({ actions, triggerClassName = '' }) => {
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95, y: -10 }}
                         transition={{ duration: 0.15 }}
-                        className="absolute right-0 top-full mt-2 min-w-[180px] py-2 bg-surface-elevated border border-white/10 rounded-xl shadow-xl z-50"
+                        className="absolute right-0 top-full mt-2 min-w-[180px] py-2 bg-surface-elevated border border-border rounded-xl shadow-xl z-50"
                     >
                         {actions.map((action, idx) => (
                             <button
@@ -45,8 +45,8 @@ const ActionMenu = ({ actions, triggerClassName = '' }) => {
                                     setIsOpen(false);
                                 }}
                                 className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors ${action.danger
-                                        ? 'text-red-400 hover:bg-red-500/10'
-                                        : 'text-white/70 hover:text-white hover:bg-white/5'
+                                    ? 'text-red-500 hover:bg-red-500/10'
+                                    : 'text-text-secondary hover:text-text-primary hover:bg-surface'
                                     }`}
                             >
                                 {action.icon && <action.icon size={16} />}
