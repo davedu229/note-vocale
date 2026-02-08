@@ -48,27 +48,27 @@ const MagicActionsMenu = ({ content, onClose }) => {
                 animate={{ y: 0, opacity: 1 }}
                 exit={{ y: 100, opacity: 0 }}
                 transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                className="w-full max-w-md mx-4 mb-4 md:mb-0 bg-surface-elevated rounded-3xl border border-white/10 shadow-2xl overflow-hidden"
+                className="w-full max-w-md mx-4 mb-4 md:mb-0 bg-surface-elevated rounded-3xl border border-border shadow-2xl overflow-hidden"
                 onClick={(e) => e.stopPropagation()}
             >
                 {/* Header */}
-                <div className="flex items-center justify-between px-5 py-4 border-b border-white/5">
+                <div className="flex items-center justify-between px-5 py-4 border-b border-border">
                     <div className="flex items-center gap-2">
                         <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-primary/30 to-accent/30 flex items-center justify-center">
-                            <Wand2 size={16} className="text-white" />
+                            <Wand2 size={16} className="text-primary" />
                         </div>
                         <div>
-                            <h3 className="text-sm font-semibold text-white">
+                            <h3 className="text-sm font-semibold text-text-primary">
                                 {selectedFormat ? options.find(o => o.key === selectedFormat)?.label : 'Magic Actions'}
                             </h3>
-                            <p className="text-xxs text-white/40">
+                            <p className="text-xxs text-text-tertiary">
                                 {selectedFormat ? 'Résultat de la transformation' : 'Transformez votre note'}
                             </p>
                         </div>
                     </div>
                     <button
                         onClick={selectedFormat ? handleBack : onClose}
-                        className="p-2 rounded-lg text-white/40 hover:text-white/70 hover:bg-white/5 transition-all"
+                        className="p-2 rounded-lg text-text-tertiary hover:text-text-primary hover:bg-surface transition-all"
                     >
                         {selectedFormat ? (
                             <span className="text-xs">← Retour</span>
@@ -94,10 +94,10 @@ const MagicActionsMenu = ({ content, onClose }) => {
                                     <button
                                         key={option.key}
                                         onClick={() => handleTransform(option.key)}
-                                        className="flex items-center gap-3 p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:border-primary/30 hover:bg-primary/5 transition-all group"
+                                        className="flex items-center gap-3 p-4 rounded-xl bg-surface border border-border hover:border-primary/30 hover:bg-primary/5 transition-all group"
                                     >
                                         <span className="text-2xl">{option.emoji}</span>
-                                        <span className="text-sm font-medium text-white/70 group-hover:text-white">
+                                        <span className="text-sm font-medium text-text-secondary group-hover:text-text-primary">
                                             {option.label}
                                         </span>
                                     </button>
@@ -114,11 +114,11 @@ const MagicActionsMenu = ({ content, onClose }) => {
                                 {isLoading ? (
                                     <div className="flex flex-col items-center justify-center py-12 gap-3">
                                         <Loader2 size={32} className="text-primary animate-spin" />
-                                        <p className="text-sm text-white/50">Transformation en cours...</p>
+                                        <p className="text-sm text-text-tertiary">Transformation en cours...</p>
                                     </div>
                                 ) : (
                                     <div className="space-y-4">
-                                        <div className="p-4 rounded-xl bg-white/[0.02] border border-white/5">
+                                        <div className="p-4 rounded-xl bg-surface border border-border">
                                             <MarkdownRenderer content={result || ''} />
                                         </div>
 
@@ -126,8 +126,8 @@ const MagicActionsMenu = ({ content, onClose }) => {
                                         <button
                                             onClick={handleCopy}
                                             className={`w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl font-medium text-sm transition-all ${copied
-                                                    ? 'bg-green-500/20 text-green-400'
-                                                    : 'bg-primary/20 text-primary-light hover:bg-primary/30'
+                                                ? 'bg-green-500/20 text-green-400'
+                                                : 'bg-primary/20 text-primary hover:bg-primary/30'
                                                 }`}
                                         >
                                             {copied ? (

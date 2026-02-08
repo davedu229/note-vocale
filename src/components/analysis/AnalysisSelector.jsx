@@ -49,33 +49,33 @@ const colorClasses = {
     primary: {
         bg: 'bg-primary/10',
         border: 'border-primary/30',
-        text: 'text-primary-light',
+        text: 'text-primary',
         hover: 'hover:bg-primary/20 hover:border-primary/50'
     },
     secondary: {
         bg: 'bg-secondary/10',
         border: 'border-secondary/30',
-        text: 'text-secondary-light',
+        text: 'text-secondary',
         hover: 'hover:bg-secondary/20 hover:border-secondary/50'
     },
     accent: {
         bg: 'bg-accent/10',
         border: 'border-accent/30',
-        text: 'text-accent-light',
+        text: 'text-accent',
         hover: 'hover:bg-accent/20 hover:border-accent/50'
     },
     white: {
-        bg: 'bg-white/5',
-        border: 'border-white/10',
-        text: 'text-white/60',
-        hover: 'hover:bg-white/10 hover:border-white/20'
+        bg: 'bg-surface',
+        border: 'border-border',
+        text: 'text-text-secondary',
+        hover: 'hover:bg-surface-elevated hover:border-border-hover'
     }
 };
 
 const AnalysisSelector = ({ onSelect, disabled = false }) => {
     return (
         <div className="space-y-3">
-            <h3 className="text-sm font-medium text-white/60 mb-4">
+            <h3 className="text-sm font-medium text-text-secondary mb-4">
                 Choisissez un type d'analyse
             </h3>
 
@@ -110,12 +110,12 @@ const AnalysisSelector = ({ onSelect, disabled = false }) => {
                                         {type.title}
                                     </h4>
                                     {type.comingSoon && (
-                                        <span className="text-xxs bg-white/10 text-white/40 px-2 py-0.5 rounded-full">
+                                        <span className="text-xxs bg-surface text-text-tertiary px-2 py-0.5 rounded-full">
                                             Bientôt
                                         </span>
                                     )}
                                 </div>
-                                <p className="text-sm text-white/40 mt-0.5">
+                                <p className="text-sm text-text-tertiary mt-0.5">
                                     {type.description}
                                 </p>
                             </div>
