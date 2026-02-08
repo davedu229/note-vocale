@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { useSubscription } from '../context/SubscriptionContext';
 import { useTheme } from '../context/ThemeContext';
-import { Activity, Crown, ChevronRight, Bell, Shield, HelpCircle, FileText, Mail, Trash2, ExternalLink, Key, Eye, EyeOff, Check, Sparkles, Moon, Sun } from 'lucide-react';
+import { Activity, Crown, ChevronRight, Bell, Shield, HelpCircle, FileText, Mail, LogOut, LogIn, ExternalLink, Key, Eye, EyeOff, Check, Sparkles, Moon, Sun } from 'lucide-react';
 import { testConnection, getStoredApiKey, setStoredApiKey, getSummaryStyle, setSummaryStyle, getSummaryStyleOptions } from '../services/ai';
+
+// Check if user has any data stored (considered as "logged in")
+const checkIsLoggedIn = () => {
+    return !!(localStorage.getItem('voice-notes') || localStorage.getItem('voice_notes_subscription') || localStorage.getItem('openai-api-key'));
+};
 
 const SettingsPage = ({ onUpgradeClick }) => {
     const { theme, toggleTheme } = useTheme();
@@ -14,6 +19,9 @@ const SettingsPage = ({ onUpgradeClick }) => {
     // Summary Style state
     const [summaryStyle, setCurrentSummaryStyle] = useState(() => getSummaryStyle());
     const styleOptions = getSummaryStyleOptions();
+
+    // Login state
+    const [isLoggedIn, setIsLoggedIn] = useState(() => checkIsLoggedIn());
 
     const handleStyleChange = (styleKey) => {
         setSummaryStyle(styleKey);
@@ -126,12 +134,12 @@ const SettingsPage = ({ onUpgradeClick }) => {
         {
             title: 'Zone Danger',
             items: [
-                {
-                    icon: Trash2,
-                    label: 'Réinitialiser les données',
+                isLoggedIn ? {
+                    icon: LogOut,
+                    label: 'Déconnexion',
                     color: 'text-red-500',
                     action: () => {
-                        if (window.confirm('Êtes-vous sûr de vouloir réinitialiser l\'application ? Toutes vos notes, paramètres et données seront effacés.')) {
+                        if (window.confirm('Êtes-vous sûr de vouloir vous déconnecter ? Toutes vos données locales seront effacées.')) {
                             // Clear all local storage data
                             localStorage.removeItem('voice-notes');
                             localStorage.removeItem('voice_notes_subscription');
@@ -143,6 +151,16 @@ const SettingsPage = ({ onUpgradeClick }) => {
                             // Reload the page to reset the app state
                             window.location.reload();
                         }
+                    }
+                } : {
+                    icon: LogIn,
+                    label: 'Connexion',
+                    color: 'text-primary',
+                    action: () => {
+                        // For now, just mark as logged in by setting a flag
+                        localStorage.setItem('voice_notes_logged_in', 'true');
+                        setIsLoggedIn(true);
+                        alert('Vous êtes maintenant connecté !');
                     }
                 }
             ]
