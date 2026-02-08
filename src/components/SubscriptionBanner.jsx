@@ -1,35 +1,14 @@
 import React from 'react';
-import { Crown, ChevronRight, Sparkles, Check } from 'lucide-react';
+import { Crown, ChevronRight } from 'lucide-react';
 import { useSubscription } from '../context/SubscriptionContext';
 import { motion } from 'framer-motion';
 
 const SubscriptionBanner = ({ onUpgradeClick, variant = 'full' }) => {
-    const { isPremium, currentTier, getDaysRemaining, canStartTrial, usage } = useSubscription();
+    const { isPremium, currentTier, canStartTrial, usage } = useSubscription();
 
-    // Premium user - show status
+    // Premium user - hide the banner completely
     if (isPremium) {
-        const daysLeft = getDaysRemaining();
-
-        return (
-            <div className="flex items-center justify-between px-4 py-3 bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/20 rounded-2xl">
-                <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                        <Crown size={18} className="text-white" />
-                    </div>
-                    <div>
-                        <p className="text-sm font-medium text-white">Premium Actif</p>
-                        {daysLeft !== null && (
-                            <p className="text-xs text-text-tertiary">
-                                {daysLeft > 0 ? `${daysLeft} jour${daysLeft > 1 ? 's' : ''} restant${daysLeft > 1 ? 's' : ''}` : 'Expire aujourd\'hui'}
-                            </p>
-                        )}
-                    </div>
-                </div>
-                <div className="flex items-center gap-1 text-primary-light">
-                    <Sparkles size={14} />
-                </div>
-            </div>
-        );
+        return null;
     }
 
     // Free user - compact variant
