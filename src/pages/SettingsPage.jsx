@@ -131,10 +131,16 @@ const SettingsPage = ({ onUpgradeClick }) => {
                     label: 'Déconnexion',
                     color: 'text-red-500',
                     action: () => {
-                        if (window.confirm('Êtes-vous sûr de vouloir vous déconnecter ?')) {
-                            // Clear local storage or handle logout logic
-                            console.log('User logged out');
-                            // navigate('/login'); // If there was a login route
+                        if (window.confirm('Êtes-vous sûr de vouloir vous déconnecter ? Toutes vos données locales seront effacées.')) {
+                            // Clear all local storage data
+                            localStorage.removeItem('voice-notes');
+                            localStorage.removeItem('subscription');
+                            localStorage.removeItem('chat-history');
+                            localStorage.removeItem('global-chat-history');
+                            localStorage.removeItem('theme');
+                            localStorage.removeItem('openai-api-key');
+                            // Reload the page to reset the app state
+                            window.location.reload();
                         }
                     }
                 }
