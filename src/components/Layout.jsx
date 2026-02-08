@@ -2,9 +2,11 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { Mic, FileText, MessageSquare, Settings } from 'lucide-react';
+import { useSubscription } from '../context/SubscriptionContext';
 
 const Layout = ({ children, onUpgradeClick }) => {
     const location = useLocation();
+    const { isPremium } = useSubscription();
 
     const getHeaderTitle = () => {
         switch (location.pathname) {
@@ -48,18 +50,20 @@ const Layout = ({ children, onUpgradeClick }) => {
                     <SidebarItem to="/settings" icon={Settings} label="Paramètres" />
                 </nav>
 
-                <div className="p-4 border-t border-border">
-                    <div className="p-4 rounded-xl bg-surface-elevated border border-border">
-                        <p className="text-sm font-medium text-text-primary mb-1">Passer Premium</p>
-                        <p className="text-xs text-text-tertiary mb-3">Débloquez l'illimité</p>
-                        <button
-                            onClick={onUpgradeClick}
-                            className="w-full py-2.5 px-3 bg-primary hover:bg-primary-dark text-white text-sm font-medium rounded-lg transition-colors text-center"
-                        >
-                            Voir les offres
-                        </button>
+                {!isPremium && (
+                    <div className="p-4 border-t border-border">
+                        <div className="p-4 rounded-xl bg-surface-elevated border border-border">
+                            <p className="text-sm font-medium text-text-primary mb-1">Passer Premium</p>
+                            <p className="text-xs text-text-tertiary mb-3">Débloquez l'illimité</p>
+                            <button
+                                onClick={onUpgradeClick}
+                                className="w-full py-2.5 px-3 bg-primary hover:bg-primary-dark text-white text-sm font-medium rounded-lg transition-colors text-center"
+                            >
+                                Voir les offres
+                            </button>
+                        </div>
                     </div>
-                </div>
+                )}
             </aside>
 
             {/* Main Content Area */}
