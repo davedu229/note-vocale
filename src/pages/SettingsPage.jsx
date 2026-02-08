@@ -134,7 +134,8 @@ const SettingsPage = ({ onUpgradeClick }) => {
                         if (window.confirm('Êtes-vous sûr de vouloir vous déconnecter ? Toutes vos données locales seront effacées.')) {
                             // Clear all local storage data
                             localStorage.removeItem('voice-notes');
-                            localStorage.removeItem('subscription');
+                            localStorage.removeItem('voice_notes_subscription');
+                            localStorage.removeItem('voice_notes_usage');
                             localStorage.removeItem('chat-history');
                             localStorage.removeItem('global-chat-history');
                             localStorage.removeItem('theme');
