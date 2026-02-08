@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSubscription } from '../context/SubscriptionContext';
 import { useTheme } from '../context/ThemeContext';
-import { Activity, Crown, ChevronRight, Bell, Shield, HelpCircle, FileText, Mail, LogOut, ExternalLink, Key, Eye, EyeOff, Check, Sparkles, Moon, Sun } from 'lucide-react';
+import { Activity, Crown, ChevronRight, Bell, Shield, HelpCircle, FileText, Mail, Trash2, ExternalLink, Key, Eye, EyeOff, Check, Sparkles, Moon, Sun } from 'lucide-react';
 import { testConnection, getStoredApiKey, setStoredApiKey, getSummaryStyle, setSummaryStyle, getSummaryStyleOptions } from '../services/ai';
 
 const SettingsPage = ({ onUpgradeClick }) => {
@@ -127,11 +127,11 @@ const SettingsPage = ({ onUpgradeClick }) => {
             title: 'Zone Danger',
             items: [
                 {
-                    icon: LogOut,
-                    label: 'Déconnexion',
+                    icon: Trash2,
+                    label: 'Réinitialiser les données',
                     color: 'text-red-500',
                     action: () => {
-                        if (window.confirm('Êtes-vous sûr de vouloir vous déconnecter ? Toutes vos données locales seront effacées.')) {
+                        if (window.confirm('Êtes-vous sûr de vouloir réinitialiser l\'application ? Toutes vos notes, paramètres et données seront effacés.')) {
                             // Clear all local storage data
                             localStorage.removeItem('voice-notes');
                             localStorage.removeItem('voice_notes_subscription');
