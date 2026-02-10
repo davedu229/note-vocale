@@ -7,7 +7,7 @@ const ConversationAnalysisView = ({ data }) => {
 
     const sentimentColor = {
         positif: { text: 'text-green-400', bg: 'bg-green-500/20', bar: 'bg-green-500' },
-        neutre: { text: 'text-white/60', bg: 'bg-white/10', bar: 'bg-white/50' },
+        neutre: { text: 'text-text-secondary', bg: 'bg-surface', bar: 'bg-text-secondary' },
         négatif: { text: 'text-red-400', bg: 'bg-red-500/20', bar: 'bg-red-500' }
     };
 
@@ -24,7 +24,7 @@ const ConversationAnalysisView = ({ data }) => {
                 <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
                         <TrendingUp size={18} className={colors.text} />
-                        <span className="text-sm font-medium text-white/80">Analyse du Sentiment</span>
+                        <span className="text-sm font-medium text-text-secondary">Analyse du Sentiment</span>
                     </div>
                     <span className={`text-sm font-medium px-3 py-1 rounded-full ${colors.bg} ${colors.text}`}>
                         {data.sentiment?.overall}
@@ -32,7 +32,7 @@ const ConversationAnalysisView = ({ data }) => {
                 </div>
 
                 {/* Sentiment Bar */}
-                <div className="h-3 bg-white/5 rounded-full overflow-hidden mb-2">
+                <div className="h-3 bg-surface rounded-full overflow-hidden mb-2">
                     <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${data.sentiment?.score || 50}%` }}
@@ -40,25 +40,25 @@ const ConversationAnalysisView = ({ data }) => {
                         className={`h-full ${colors.bar} rounded-full`}
                     />
                 </div>
-                <div className="flex justify-between text-xs text-white/40">
+                <div className="flex justify-between text-xs text-text-tertiary">
                     <span>Négatif</span>
-                    <span className="font-medium text-white/60">{data.sentiment?.score || 50}%</span>
+                    <span className="font-medium text-text-secondary">{data.sentiment?.score || 50}%</span>
                     <span>Positif</span>
                 </div>
 
                 {/* Tone */}
                 {data.tone && (
-                    <div className="mt-4 pt-4 border-t border-white/5">
-                        <span className="text-xs text-white/40">Ton général: </span>
-                        <span className="text-sm text-white/80 capitalize">{data.tone}</span>
+                    <div className="mt-4 pt-4 border-t border-border">
+                        <span className="text-xs text-text-tertiary">Ton général: </span>
+                        <span className="text-sm text-text-secondary capitalize">{data.tone}</span>
                     </div>
                 )}
             </div>
 
             {/* Summary */}
             {data.summary && (
-                <div className="p-4 bg-white/[0.02] rounded-2xl border border-white/5">
-                    <p className="text-sm text-white/80 leading-relaxed">{data.summary}</p>
+                <div className="p-4 bg-surface rounded-2xl border border-border">
+                    <p className="text-sm text-text-secondary leading-relaxed">{data.summary}</p>
                 </div>
             )}
 
@@ -67,18 +67,18 @@ const ConversationAnalysisView = ({ data }) => {
                 <Section icon={MessageSquare} title="Arguments Clés" emoji="💬">
                     <div className="space-y-2">
                         {data.keyArguments.map((arg, i) => (
-                            <div key={i} className="p-3 bg-white/[0.02] rounded-xl border border-white/5">
+                            <div key={i} className="p-3 bg-surface rounded-xl border border-border">
                                 <div className="flex items-center gap-2 mb-1">
                                     <span className="text-xs bg-secondary/20 text-secondary-light px-2 py-0.5 rounded-full">
                                         {arg.speaker}
                                     </span>
                                     <span className={`text-xxs ${arg.strength === 'fort' ? 'text-green-400' :
-                                            arg.strength === 'moyen' ? 'text-yellow-400' : 'text-white/40'
+                                        arg.strength === 'moyen' ? 'text-yellow-400' : 'text-text-tertiary'
                                         }`}>
                                         {arg.strength}
                                     </span>
                                 </div>
-                                <p className="text-sm text-white/80">{arg.argument}</p>
+                                <p className="text-sm text-text-secondary">{arg.argument}</p>
                             </div>
                         ))}
                     </div>
@@ -92,7 +92,7 @@ const ConversationAnalysisView = ({ data }) => {
                         {data.agreements.map((item, i) => (
                             <li key={i} className="flex items-start gap-2">
                                 <ThumbsUp size={14} className="text-green-400 mt-0.5" />
-                                <span className="text-sm text-white/80">{item}</span>
+                                <span className="text-sm text-text-secondary">{item}</span>
                             </li>
                         ))}
                     </ul>
@@ -106,7 +106,7 @@ const ConversationAnalysisView = ({ data }) => {
                         {data.disagreements.map((item, i) => (
                             <li key={i} className="flex items-start gap-2">
                                 <ThumbsDown size={14} className="text-red-400 mt-0.5" />
-                                <span className="text-sm text-white/80">{item}</span>
+                                <span className="text-sm text-text-secondary">{item}</span>
                             </li>
                         ))}
                     </ul>
@@ -118,10 +118,10 @@ const ConversationAnalysisView = ({ data }) => {
                 <Section icon={HelpCircle} title="Questions Posées" emoji="❓">
                     <div className="space-y-2">
                         {data.questions.map((q, i) => (
-                            <div key={i} className="p-3 bg-white/[0.02] rounded-xl border border-white/5">
-                                <p className="text-sm text-white/80 font-medium">{q.question}</p>
+                            <div key={i} className="p-3 bg-surface rounded-xl border border-border">
+                                <p className="text-sm text-text-secondary font-medium">{q.question}</p>
                                 {q.answered && q.answer && (
-                                    <p className="text-xs text-white/50 mt-1">→ {q.answer}</p>
+                                    <p className="text-xs text-text-tertiary mt-1">→ {q.answer}</p>
                                 )}
                                 {!q.answered && (
                                     <span className="text-xs text-yellow-400 mt-1 inline-block">Sans réponse</span>
@@ -139,7 +139,7 @@ const ConversationAnalysisView = ({ data }) => {
                         {data.insights.map((insight, i) => (
                             <li key={i} className="flex items-start gap-2">
                                 <Lightbulb size={14} className="text-yellow-400 mt-0.5" />
-                                <span className="text-sm text-white/80">{insight}</span>
+                                <span className="text-sm text-text-secondary">{insight}</span>
                             </li>
                         ))}
                     </ul>
@@ -149,11 +149,11 @@ const ConversationAnalysisView = ({ data }) => {
     );
 };
 
-const Section = ({ icon: Icon, title, emoji, children }) => (
+const Section = ({ title, emoji, children }) => (
     <div>
         <div className="flex items-center gap-2 mb-3">
             <span className="text-lg">{emoji}</span>
-            <h3 className="text-sm font-medium text-white/70">{title}</h3>
+            <h3 className="text-sm font-medium text-text-secondary">{title}</h3>
         </div>
         {children}
     </div>

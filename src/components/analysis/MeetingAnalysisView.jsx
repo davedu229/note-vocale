@@ -7,14 +7,14 @@ const MeetingAnalysisView = ({ data }) => {
 
     const moodColors = {
         positif: 'text-green-400 bg-green-500/10',
-        neutre: 'text-white/60 bg-white/5',
+        neutre: 'text-text-secondary bg-surface',
         tendu: 'text-red-400 bg-red-500/10'
     };
 
     const importanceColors = {
         high: 'bg-red-500/20 text-red-300',
         medium: 'bg-yellow-500/20 text-yellow-300',
-        low: 'bg-white/10 text-white/50'
+        low: 'bg-surface text-text-tertiary'
     };
 
     return (
@@ -30,10 +30,10 @@ const MeetingAnalysisView = ({ data }) => {
                         {data.overallMood === 'positif' ? '😊' : data.overallMood === 'tendu' ? '😰' : '😐'} {data.overallMood}
                     </span>
                     {data.duration && (
-                        <span className="text-xs text-white/40">⏱️ {data.duration}</span>
+                        <span className="text-xs text-text-tertiary">⏱️ {data.duration}</span>
                     )}
                 </div>
-                <p className="text-white/80 text-sm leading-relaxed">
+                <p className="text-text-secondary text-sm leading-relaxed">
                     {data.summary}
                 </p>
             </div>
@@ -49,10 +49,10 @@ const MeetingAnalysisView = ({ data }) => {
                                 </div>
                                 <div className="flex-1">
                                     <div className="flex items-center justify-between">
-                                        <span className="text-sm text-white/80">{p.label}</span>
-                                        <span className="text-xs text-white/40">{p.speakingPercent}%</span>
+                                        <span className="text-sm text-text-secondary">{p.label}</span>
+                                        <span className="text-xs text-text-tertiary">{p.speakingPercent}%</span>
                                     </div>
-                                    <div className="h-1.5 bg-white/5 rounded-full mt-1 overflow-hidden">
+                                    <div className="h-1.5 bg-surface rounded-full mt-1 overflow-hidden">
                                         <motion.div
                                             initial={{ width: 0 }}
                                             animate={{ width: `${p.speakingPercent}%` }}
@@ -72,14 +72,14 @@ const MeetingAnalysisView = ({ data }) => {
                 <Section icon={Target} title="Sujets Abordés" emoji="🎯">
                     <div className="space-y-2">
                         {data.topics.map((topic, i) => (
-                            <div key={i} className="p-3 bg-white/[0.02] rounded-xl border border-white/5">
+                            <div key={i} className="p-3 bg-surface rounded-xl border border-border">
                                 <div className="flex items-start justify-between gap-2">
-                                    <h4 className="text-sm font-medium text-white/90">{topic.title}</h4>
+                                    <h4 className="text-sm font-medium text-text-primary">{topic.title}</h4>
                                     <span className={`text-xxs px-2 py-0.5 rounded-full ${importanceColors[topic.importance] || importanceColors.medium}`}>
                                         {topic.importance}
                                     </span>
                                 </div>
-                                <p className="text-xs text-white/50 mt-1">{topic.summary}</p>
+                                <p className="text-xs text-text-tertiary mt-1">{topic.summary}</p>
                             </div>
                         ))}
                     </div>
@@ -93,7 +93,7 @@ const MeetingAnalysisView = ({ data }) => {
                         {data.decisions.map((decision, i) => (
                             <li key={i} className="flex items-start gap-2">
                                 <CheckCircle size={16} className="text-green-400 mt-0.5 flex-shrink-0" />
-                                <span className="text-sm text-white/80">{decision.text}</span>
+                                <span className="text-sm text-text-secondary">{decision.text}</span>
                             </li>
                         ))}
                     </ul>
@@ -105,12 +105,12 @@ const MeetingAnalysisView = ({ data }) => {
                 <Section icon={ListTodo} title="Actions à Suivre" emoji="📌">
                     <div className="space-y-2">
                         {data.actionItems.map((action, i) => (
-                            <div key={i} className="flex items-start gap-3 p-3 bg-white/[0.02] rounded-xl border border-white/5">
+                            <div key={i} className="flex items-start gap-3 p-3 bg-surface rounded-xl border border-border">
                                 <div className={`w-2 h-2 rounded-full mt-1.5 ${action.priority === 'high' ? 'bg-red-400' :
-                                        action.priority === 'medium' ? 'bg-yellow-400' : 'bg-white/30'
+                                    action.priority === 'medium' ? 'bg-yellow-400' : 'bg-text-tertiary'
                                     }`} />
                                 <div className="flex-1">
-                                    <p className="text-sm text-white/80">{action.task}</p>
+                                    <p className="text-sm text-text-secondary">{action.task}</p>
                                     {action.assignee && (
                                         <span className="text-xs text-primary-light mt-1 inline-block">
                                             → {action.assignee}
@@ -126,11 +126,11 @@ const MeetingAnalysisView = ({ data }) => {
     );
 };
 
-const Section = ({ icon: Icon, title, emoji, children }) => (
+const Section = ({ title, emoji, children }) => (
     <div>
         <div className="flex items-center gap-2 mb-3">
             <span className="text-lg">{emoji}</span>
-            <h3 className="text-sm font-medium text-white/70">{title}</h3>
+            <h3 className="text-sm font-medium text-text-secondary">{title}</h3>
         </div>
         {children}
     </div>

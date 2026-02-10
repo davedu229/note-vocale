@@ -33,7 +33,7 @@ const NoteDetailPage = () => {
 
     // Load chat history when note ID changes (CRUCIAL for isolation)
     useEffect(() => {
-        if (id && note) {
+        if (id) {
             const savedHistory = getNoteChatHistory(id);
             if (savedHistory && savedHistory.length > 0) {
                 setMessages(savedHistory);
@@ -41,7 +41,7 @@ const NoteDetailPage = () => {
                 setMessages([getDefaultMessage()]);
             }
         }
-    }, [id, note, getNoteChatHistory, getDefaultMessage]);
+    }, [id, getNoteChatHistory, getDefaultMessage]);
 
     // Save messages to context when they change
     const saveMessages = useCallback((msgs) => {

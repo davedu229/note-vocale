@@ -40,10 +40,15 @@ const ChatPage = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [currentChatSession?.messages]);
 
-    // Save session when leaving or on significant changes
+    // Save session when leaving
+    const saveSessionRef = useRef(saveChatSessionToHistory);
+    useEffect(() => {
+        saveSessionRef.current = saveChatSessionToHistory;
+    });
+
     useEffect(() => {
         return () => {
-            saveChatSessionToHistory();
+            saveSessionRef.current();
         };
     }, []);
 

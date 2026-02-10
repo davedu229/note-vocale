@@ -6,7 +6,6 @@ import { useSubscription } from '../context/SubscriptionContext';
 const PaywallModal = ({ isOpen, onClose, feature = null }) => {
     const { tiers, upgradeToPremium, canStartTrial, restorePurchases } = useSubscription();
     const [isLoading, setIsLoading] = useState(false);
-    const [selectedPlan, setSelectedPlan] = useState('premium');
 
     const handleSubscribe = async (withTrial = false) => {
         setIsLoading(true);
@@ -56,14 +55,14 @@ const PaywallModal = ({ isOpen, onClose, feature = null }) => {
                         exit={{ y: '100%' }}
                         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
                         onClick={(e) => e.stopPropagation()}
-                        className="w-full max-w-md bg-gradient-to-b from-surface-elevated to-background rounded-t-3xl overflow-hidden"
+                        className="w-full max-w-md bg-surface-elevated rounded-t-3xl overflow-hidden shadow-2xl"
                         style={{ maxHeight: '90vh', paddingBottom: 'env(safe-area-inset-bottom)' }}
                     >
                         {/* Header */}
                         <div className="relative pt-6 pb-4 px-6">
                             <button
                                 onClick={onClose}
-                                className="absolute top-4 right-4 p-2 rounded-full bg-white/5 text-white/50 hover:text-white/80 transition-colors"
+                                className="absolute top-4 right-4 p-2 rounded-full bg-surface-elevated text-text-tertiary hover:text-text-primary transition-colors"
                             >
                                 <X size={18} />
                             </button>
@@ -72,11 +71,11 @@ const PaywallModal = ({ isOpen, onClose, feature = null }) => {
                                 <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4 shadow-lg shadow-primary/30">
                                     <Crown size={28} className="text-white" />
                                 </div>
-                                <h2 className="text-2xl font-bold text-white mb-2">
+                                <h2 className="text-2xl font-bold text-text-primary mb-2">
                                     Passez à Premium
                                 </h2>
                                 {feature && (
-                                    <p className="text-sm text-white/50">
+                                    <p className="text-sm text-text-secondary">
                                         {featureMessages[feature]}
                                     </p>
                                 )}
@@ -97,7 +96,7 @@ const PaywallModal = ({ isOpen, onClose, feature = null }) => {
                                         <div className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
                                             <Check size={14} className="text-green-400" />
                                         </div>
-                                        <span className="text-sm text-white/80">{feat}</span>
+                                        <span className="text-sm text-text-secondary">{feat}</span>
                                     </motion.div>
                                 ))}
                             </div>
@@ -112,8 +111,8 @@ const PaywallModal = ({ isOpen, onClose, feature = null }) => {
                                 </div>
 
                                 <div className="flex items-baseline gap-1 mb-2">
-                                    <span className="text-3xl font-bold text-white">7,99€</span>
-                                    <span className="text-white/50">/mois</span>
+                                    <span className="text-3xl font-bold text-text-primary">7,99€</span>
+                                    <span className="text-text-tertiary">/mois</span>
                                 </div>
 
                                 {canStartTrial && (
@@ -145,7 +144,7 @@ const PaywallModal = ({ isOpen, onClose, feature = null }) => {
                             <button
                                 onClick={handleRestore}
                                 disabled={isLoading}
-                                className="w-full py-3 text-sm text-white/50 hover:text-white/70 transition-colors"
+                                className="w-full py-3 text-sm text-text-tertiary hover:text-text-primary transition-colors"
                             >
                                 Restaurer mes achats
                             </button>
@@ -153,9 +152,9 @@ const PaywallModal = ({ isOpen, onClose, feature = null }) => {
 
                         {/* Legal */}
                         <div className="px-6 pb-6">
-                            <p className="text-xxs text-white/30 text-center leading-relaxed">
+                            <p className="text-xxs text-text-tertiary text-center leading-relaxed">
                                 L'abonnement se renouvelle automatiquement. Annulez à tout moment dans les paramètres de votre compte Apple.
-                                En continuant, vous acceptez nos <a href="#" className="underline">Conditions d'utilisation</a> et notre <a href="#" className="underline">Politique de confidentialité</a>.
+                                En continuant, vous acceptez nos <a href="#" className="underline hover:text-text-primary">Conditions d'utilisation</a> et notre <a href="#" className="underline hover:text-text-primary">Politique de confidentialité</a>.
                             </p>
                         </div>
                     </motion.div>
