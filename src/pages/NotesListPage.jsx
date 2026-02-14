@@ -30,7 +30,7 @@ const NotesListPage = () => {
             <div className="flex flex-col items-center justify-center flex-1 text-center py-16 px-6">
                 {/* Animated Icon Container */}
                 <div className="relative mb-6">
-                    <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center border border-primary/20">
+                    <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/10 to-accent/5 flex items-center justify-center border border-primary/20 shadow-premium">
                         <Mic size={32} className="text-primary" strokeWidth={1.5} />
                     </div>
                     {/* Subtle pulse rings */}
@@ -129,7 +129,7 @@ const NotesListPage = () => {
                                 }
                             }}
                             className={`
-                              relative bg-surface border overflow-hidden rounded-2xl transition-colors duration-200
+                              relative bg-surface border overflow-hidden rounded-2xl transition-all duration-200 shadow-sm hover:shadow-premium
                               ${note.selected
                                     ? 'bg-primary/5 border-primary/30'
                                     : 'bg-surface-elevated border-border hover:border-border-hover'}

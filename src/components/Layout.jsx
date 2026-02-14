@@ -81,7 +81,7 @@ const Layout = ({ children, onUpgradeClick }) => {
                 </header>
 
                 {/* Desktop Header */}
-                <header className="hidden md:flex items-center justify-between px-8 py-6 border-b border-border bg-surface">
+                <header className="hidden md:flex items-center justify-between px-8 py-6 border-b border-border bg-surface/80 backdrop-blur-xl">
                     <div>
                         <h2 className="text-xl font-semibold text-text-primary">{getHeaderTitle()}</h2>
                         <p className="text-sm text-text-secondary font-light">{getHeaderSubtitle()}</p>
@@ -98,10 +98,10 @@ const Layout = ({ children, onUpgradeClick }) => {
 
             {/* Mobile Bottom Navigation */}
             <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50">
-                <div className="liquid-glass pt-3 px-4 flex justify-around items-center pb-safe" style={{ paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom))' }}>
-                    <NavItem to="/" icon={Mic} label="Record" />
+                <div className="liquid-glass pt-3 px-4 flex justify-around items-center pb-safe backdrop-blur-xl" style={{ paddingBottom: 'max(1.5rem, env(safe-area-inset-bottom))' }}>
+                    <NavItem to="/" icon={Mic} label="Enregistrer" />
                     <NavItem to="/notes" icon={FileText} label="Notes" />
-                    <NavItem to="/chat" icon={MessageSquare} label="Chat" />
+                    <NavItem to="/chat" icon={MessageSquare} label="Assistant" />
                     <NavItem to="/settings" icon={Settings} label="Compte" />
                 </div>
             </nav>

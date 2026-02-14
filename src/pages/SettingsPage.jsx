@@ -180,7 +180,7 @@ const SettingsPage = ({ onUpgradeClick }) => {
                     <div className="flex items-center gap-3">
                         <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${isPremium
                             ? 'bg-gradient-to-br from-primary to-accent'
-                            : 'bg-surface dark:bg-white/10'
+                            : 'bg-surface-elevated'
                             }`}>
                             <Crown size={22} className={isPremium ? 'text-white' : 'text-text-primary'} />
                         </div>
@@ -241,7 +241,7 @@ const SettingsPage = ({ onUpgradeClick }) => {
                         value={apiKey}
                         onChange={(e) => setApiKey(e.target.value)}
                         placeholder="AIzaSy..."
-                        className="w-full bg-surface dark:bg-white/5 border border-border dark:border-white/10 rounded-xl px-4 py-3 pr-12 text-sm text-text-primary placeholder-text-tertiary focus:outline-none focus:border-primary/50"
+                        className="w-full bg-surface-elevated border border-border rounded-xl px-4 py-3 pr-12 text-sm text-text-primary placeholder-text-tertiary focus:outline-none focus:border-primary/50"
                     />
                     <button
                         onClick={() => setShowApiKey(!showApiKey)}
@@ -295,7 +295,7 @@ const SettingsPage = ({ onUpgradeClick }) => {
                             onClick={() => handleStyleChange(option.key)}
                             className={`w-full flex items-center gap-3 p-3 rounded-xl border transition-all ${summaryStyle === option.key
                                 ? 'bg-primary/10 border-primary/30'
-                                : 'bg-surface dark:bg-white/[0.02] border-border dark:border-white/5 hover:border-border-hover dark:hover:border-white/10'
+                                : 'bg-surface border-border hover:border-border-hover'
                                 }`}
                         >
                             <span className="text-xl">{option.emoji}</span>

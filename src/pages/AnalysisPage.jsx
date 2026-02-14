@@ -86,7 +86,7 @@ const AnalysisPage = () => {
     return (
         <div className="flex flex-col min-h-[calc(100vh-140px)]">
             {/* Header */}
-            <div className="flex items-center justify-between pb-4 border-b border-white/5">
+            <div className="flex items-center justify-between pb-4 border-b border-border">
                 <button
                     onClick={() => selectedType ? handleReset() : navigate(`/notes/${id}`)}
                     className="flex items-center gap-2 text-text-secondary hover:text-text-primary transition-colors"

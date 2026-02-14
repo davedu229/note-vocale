@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useNotes } from '../context/NotesContext';
 import { chatWithAi } from '../services/ai';
-import { Send, Bot, User, FileText, History, Plus, ChevronRight } from 'lucide-react';
+import { Send, Bot, User, FileText, History, Plus, ChevronRight, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import MarkdownRenderer from '../components/MarkdownRenderer';
@@ -147,44 +147,81 @@ const ChatPage = () => {
 
                 {/* Messages */}
                 <div className="flex-1 overflow-y-auto space-y-4 scrollbar-hide pb-4">
-                    <AnimatePresence>
-                        {messages.map((msg, idx) => (
-                            <motion.div
-                                key={idx}
-                                initial={{ opacity: 0, y: 10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.2 }}
-                                className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}
-                            >
-                                {/* Avatar */}
-                                <div className={`
+                    {messages.length === 0 ? (
+                        /* Welcome Screen */
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="flex flex-col items-center justify-center h-full text-center px-4"
+                        >
+                            <div className="relative mb-6">
+                                <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/10 flex items-center justify-center shadow-premium">
+                                    <Sparkles size={32} className="text-primary" />
+                                </div>
+                                <motion.div
+                                    animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.15, 0.3] }}
+                                    transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                                    className="absolute inset-[-10px] rounded-3xl border border-primary/20"
+                                />
+                            </div>
+                            <h3 className="text-lg font-semibold text-text-primary mb-2">
+                                Bonjour ! Comment puis-je aider ?
+                            </h3>
+                            <p className="text-sm text-text-tertiary mb-6 max-w-xs">
+                                Posez-moi n'importe quelle question sur vos notes sélectionnées.
+                            </p>
+                            <div className="flex flex-wrap justify-center gap-2">
+                                {['📝 Résume mes notes', '🎯 Points clés', '✅ Actions à faire', '💡 Idées principales'].map((q, i) => (
+                                    <button
+                                        key={i}
+                                        onClick={() => { setInput(q); inputRef.current?.focus(); }}
+                                        className="px-4 py-2 bg-surface-elevated border border-border rounded-full text-xs text-text-secondary hover:text-text-primary hover:border-primary/30 hover:bg-primary/5 transition-all active:scale-95"
+                                    >
+                                        {q}
+                                    </button>
+                                ))}
+                            </div>
+                        </motion.div>
+                    ) : (
+                        <AnimatePresence>
+                            {messages.map((msg, idx) => (
+                                <motion.div
+                                    key={idx}
+                                    initial={{ opacity: 0, y: 10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.2 }}
+                                    className={`flex gap-3 ${msg.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}
+                                >
+                                    {/* Avatar */}
+                                    <div className={`
                     w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0
                     ${msg.role === 'user'
-                                        ? 'bg-secondary/15 text-secondary'
-                                        : 'bg-primary/15 text-primary'}
+                                            ? 'bg-secondary/15 text-secondary'
+                                            : 'bg-primary/15 text-primary'}
                   `}>
-                                    {msg.role === 'user'
-                                        ? <User size={14} strokeWidth={2} />
-                                        : <Bot size={14} strokeWidth={2} />
-                                    }
-                                </div>
+                                        {msg.role === 'user'
+                                            ? <User size={14} strokeWidth={2} />
+                                            : <Bot size={14} strokeWidth={2} />
+                                        }
+                                    </div>
 
-                                {/* Bubble */}
-                                <div className={`
+                                    {/* Bubble */}
+                                    <div className={`
                     py-3 px-4 rounded-2xl max-w-[85%] text-sm
                     ${msg.role === 'user'
-                                        ? 'bg-secondary/10 border border-secondary/20 text-text-primary rounded-tr-sm'
-                                        : 'bg-surface-elevated border border-border rounded-tl-sm text-text-secondary'}
+                                            ? 'bg-secondary/10 border border-secondary/20 text-text-primary rounded-tr-sm'
+                                            : 'bg-surface-elevated border border-border rounded-tl-sm text-text-secondary'}
                   `}>
-                                    {msg.role === 'ai' ? (
-                                        <MarkdownRenderer content={msg.content} />
-                                    ) : (
-                                        <div className="whitespace-pre-wrap font-light">{msg.content}</div>
-                                    )}
-                                </div>
-                            </motion.div>
-                        ))}
-                    </AnimatePresence>
+                                        {msg.role === 'ai' ? (
+                                            <MarkdownRenderer content={msg.content} />
+                                        ) : (
+                                            <div className="whitespace-pre-wrap font-light">{msg.content}</div>
+                                        )}
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </AnimatePresence>
+                    )}
 
                     {/* Loading Indicator */}
                     {isLoading && (

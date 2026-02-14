@@ -68,7 +68,7 @@ const PaywallModal = ({ isOpen, onClose, feature = null }) => {
                             </button>
 
                             <div className="flex flex-col items-center text-center">
-                                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4 shadow-lg shadow-primary/30">
+                                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-accent flex items-center justify-center mb-4 shadow-lg shadow-primary/30 glow-primary">
                                     <Crown size={28} className="text-white" />
                                 </div>
                                 <h2 className="text-2xl font-bold text-text-primary mb-2">
@@ -129,7 +129,7 @@ const PaywallModal = ({ isOpen, onClose, feature = null }) => {
                                 whileTap={{ scale: 0.98 }}
                                 onClick={() => handleSubscribe(canStartTrial)}
                                 disabled={isLoading}
-                                className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-primary to-accent text-white font-semibold text-lg shadow-lg shadow-primary/30 flex items-center justify-center gap-2 disabled:opacity-50"
+                                className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-primary to-accent text-white font-semibold text-lg shadow-lg shadow-primary/30 glow-primary flex items-center justify-center gap-2 disabled:opacity-50 active:scale-[0.98] transition-transform"
                             >
                                 {isLoading ? (
                                     <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />

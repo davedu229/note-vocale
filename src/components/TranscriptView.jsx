@@ -20,7 +20,7 @@ const TranscriptView = ({ transcript, interimTranscript }) => {
             className="w-full mt-6"
         >
             <div className="flex items-center gap-2 mb-3">
-                <div className="w-6 h-6 rounded-lg bg-white/5 flex items-center justify-center">
+                <div className="w-6 h-6 rounded-lg bg-surface-elevated flex items-center justify-center">
                     <AlignLeft className="w-3.5 h-3.5 text-text-tertiary" />
                 </div>
                 <h2 className="text-xs font-medium text-text-tertiary uppercase tracking-widest">

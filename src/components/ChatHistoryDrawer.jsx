@@ -45,12 +45,12 @@ const ChatHistoryDrawer = ({
                         style={{ paddingTop: 'env(safe-area-inset-top)' }}
                     >
                         {/* Header */}
-                        <div className="p-4 border-b border-white/5">
+                        <div className="p-4 border-b border-border">
                             <div className="flex items-center justify-between mb-4">
-                                <h2 className="text-lg font-semibold text-white/90">Historique</h2>
+                                <h2 className="text-lg font-semibold text-text-primary">Historique</h2>
                                 <button
                                     onClick={onClose}
-                                    className="text-white/40 hover:text-white/70 text-sm"
+                                    className="text-text-tertiary hover:text-text-primary text-sm"
                                 >
                                     Fermer
                                 </button>
@@ -61,7 +61,7 @@ const ChatHistoryDrawer = ({
                                     onNewChat();
                                     onClose();
                                 }}
-                                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-primary/20 text-primary-light rounded-xl text-sm font-medium hover:bg-primary/30 transition-colors"
+                                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-primary/20 text-primary rounded-xl text-sm font-medium hover:bg-primary/30 transition-colors"
                             >
                                 <Plus size={16} />
                                 Nouvelle conversation
@@ -72,8 +72,8 @@ const ChatHistoryDrawer = ({
                         <div className="flex-1 overflow-y-auto p-3 space-y-1 scrollbar-hide">
                             {history.length === 0 ? (
                                 <div className="text-center py-8">
-                                    <MessageSquare size={32} className="mx-auto text-white/20 mb-2" />
-                                    <p className="text-sm text-white/40">Aucun historique</p>
+                                    <MessageSquare size={32} className="mx-auto text-text-tertiary mb-2" />
+                                    <p className="text-sm text-text-tertiary">Aucun historique</p>
                                 </div>
                             ) : (
                                 history.map((session) => (
@@ -85,7 +85,7 @@ const ChatHistoryDrawer = ({
                       group relative p-3 rounded-xl cursor-pointer transition-all
                       ${session.id === currentSessionId
                                                 ? 'bg-primary/15 border border-primary/30'
-                                                : 'hover:bg-white/5 border border-transparent'}
+                                                : 'hover:bg-surface border border-transparent'}
                     `}
                                         onClick={() => {
                                             onSelectSession(session.id);
@@ -93,16 +93,16 @@ const ChatHistoryDrawer = ({
                                         }}
                                     >
                                         <div className="flex items-start gap-3">
-                                            <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center flex-shrink-0">
-                                                <MessageSquare size={14} className="text-white/50" />
+                                            <div className="w-8 h-8 rounded-lg bg-surface flex items-center justify-center flex-shrink-0">
+                                                <MessageSquare size={14} className="text-text-secondary" />
                                             </div>
                                             <div className="flex-1 min-w-0">
-                                                <p className="text-sm text-white/80 font-medium truncate">
+                                                <p className="text-sm text-text-primary font-medium truncate">
                                                     {session.title}
                                                 </p>
                                                 <div className="flex items-center gap-1 mt-1">
-                                                    <Clock size={10} className="text-white/30" />
-                                                    <span className="text-xs text-white/30">
+                                                    <Clock size={10} className="text-text-tertiary" />
+                                                    <span className="text-xs text-text-tertiary">
                                                         {formatDate(session.updatedAt)}
                                                     </span>
                                                 </div>
@@ -114,7 +114,7 @@ const ChatHistoryDrawer = ({
                                                     e.stopPropagation();
                                                     onDeleteSession(session.id);
                                                 }}
-                                                className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg text-white/30 hover:text-red-400 hover:bg-red-500/10 transition-all"
+                                                className="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg text-text-tertiary hover:text-red-400 hover:bg-red-500/10 transition-all"
                                             >
                                                 <Trash2 size={12} />
                                             </button>
@@ -125,8 +125,8 @@ const ChatHistoryDrawer = ({
                         </div>
 
                         {/* Footer hint */}
-                        <div className="p-3 border-t border-white/5">
-                            <p className="text-xs text-white/30 text-center">
+                        <div className="p-3 border-t border-border">
+                            <p className="text-xs text-text-tertiary text-center">
                                 {history.length} conversation{history.length > 1 ? 's' : ''} sauvegardée{history.length > 1 ? 's' : ''}
                             </p>
                         </div>
